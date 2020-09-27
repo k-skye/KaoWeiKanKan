@@ -1,0 +1,7 @@
+<!--pages/indexk/indexk.wxml-->
+<text>pages/indexk/indexk.wxml</text>
+<form bindsubmit="logink">
+  <input maxlength="10" placeholder="用户名" name="username"/>
+  <input maxlength="18" placeholder="密码" name="password" type="password"/>
+  <button type="primary" form-type="submit">登录</button>
+</form>
