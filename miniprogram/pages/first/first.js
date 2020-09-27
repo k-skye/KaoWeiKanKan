@@ -5,6 +5,11 @@ Page({
 
   },
   getOpenID:function(){
+    wx.showToast({
+      title: 'loading',
+      icon:'loading',
+      duration:5000
+    })
     wx.cloud.callFunction({
       name: 'first',
       data: {},
@@ -15,11 +20,19 @@ Page({
         console.log(res.result.userI)
         if (res.result.userI == 0)//判断方式有待修改
         {
+          wx.showToast({
+            title: 'success',
+            icon:'success'
+          })
           wx.redirectTo({
             url: '../indexk/indexk',
           })
         }
         else {
+          wx.showToast({
+            title: 'success',
+            icon:'success'
+          })
           wx.redirectTo({
             url: '../userInf/userInf',
           })
@@ -28,6 +41,11 @@ Page({
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
+        console.log('tuip123')
+        wx.showToast({
+          title: 'fail',
+          icon:'none',
+        })
       }
     })
   },
@@ -35,6 +53,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    wx.showToast({
+      title: 'loading',
+      icon:'loading',
+      duration:5000
+    })
     wx.cloud.callFunction({
       name: 'first',
       data: {},
@@ -45,11 +75,19 @@ Page({
         console.log(res.result.userI)
         if (res.result.userI == 0)//判断方式有待修改
         {
+          wx.showToast({
+            title: 'success',
+            icon:'success'
+          })
           wx.redirectTo({
             url: '../indexk/indexk',
           })
         }
         else {
+          wx.showToast({
+            title: 'success',
+            icon:'success'
+          })
           wx.redirectTo({
             url: '../userInf/userInf',
           })
@@ -59,18 +97,12 @@ Page({
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
         console.log('tuip123')
-        wx.redirectTo({
-          url: '../indexk/indexk',
+        wx.showToast({
+          title: 'fail',
+          icon:'none'
         })
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
   },
 
   /**
