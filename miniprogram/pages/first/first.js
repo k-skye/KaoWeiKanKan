@@ -35,7 +35,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.cloud.callFunction({
+      name: 'first',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+        console.log('tuip123')
+        console.log(res.result.userI)
+        if (res.result.userI == 0)//判断方式有待修改
+        {
+          wx.redirectTo({
+            url: '../indexk/indexk',
+          })
+        }
+        else {
+          wx.redirectTo({
+            url: '../userInf/userInf',
+          })
+          
+        }
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+        console.log('tuip123')
+        wx.redirectTo({
+          url: '../indexk/indexk',
+        })
+      }
+    })
   },
 
   /**
@@ -49,7 +77,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
@@ -85,5 +113,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
 })
