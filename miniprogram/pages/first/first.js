@@ -6,7 +6,7 @@ Page({
   },
   getOpenID:function(){
     wx.cloud.callFunction({
-      name: 'login',
+      name: 'first',
       data: {},
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)

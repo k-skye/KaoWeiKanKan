@@ -1,2 +1,3 @@
 <!--pages/userInf/userInf.wxml-->
 <text>pages/userInf/userInf.wxml</text>
+<text class="request-text">{{openid}}</text>

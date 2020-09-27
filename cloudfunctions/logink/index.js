@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
    let password=event.password
    const wxContext = cloud.getWXContext()
    let openID=wxContext.OPENID
-
+//使用绑定功能需要有对应数据库保存数据
   //  event.username
   //  event.password
    return {
