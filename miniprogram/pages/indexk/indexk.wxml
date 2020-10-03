@@ -1,7 +1,22 @@
 <!--pages/indexk/indexk.wxml-->
-<text>pages/indexk/indexk.wxml</text>
-<form bindsubmit="logink">
-  <input maxlength="10" placeholder="用户名" name="username"/>
-  <input maxlength="18" placeholder="密码" name="password" type="password"/>
-  <button type="primary" form-type="submit">登录</button>
-</form>
+<view class="head">
+  <view class="view_text">
+    <text class="first_title">华广考试</text>
+  </view>
+  <view class="view_text">
+   <text class="second_title">登录</text>
+  </view>
+</view>
+<view class="body">
+  <form bindsubmit="logink">
+    <view class="view_input">
+      <input class="radius_input" maxlength="18" placeholder="   用户名" name="username" />
+    </view>
+    <view  class="view_input">
+      <input class="radius_input" maxlength="18" placeholder="   密码" name="password" type="password"/>
+    </view>
+    <button class="button_class" plain="true" form-type="submit">
+      <image src="../../images/log-in.png"></image>
+    </button>
+  </form>
+</view>
