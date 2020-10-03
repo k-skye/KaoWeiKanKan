@@ -8,6 +8,7 @@
 .first_title{
   font-weight: 200;
   color: #aaa;
+  font-size: large;
 }
 .second_title{
   font-weight: bold;
