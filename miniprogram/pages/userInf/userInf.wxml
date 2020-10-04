@@ -1,3 +1,22 @@
 <!--pages/userInf/userInf.wxml-->
-<text>pages/userInf/userInf.wxml</text>
-<text class="request-text">{{openid}}</text>
+<text class="userName">openid：{{openid}}</text>
+<text class="count">你还有{{list.length}}场考试</text>
+
+<view class='list_box' wx:for='{{list}}' wx:key='this' wx:for-item='parentItem' wx:for-index='parentIndex'>
+  <view class='list'>
+    <view class='list_name_box' catchtap='listTap' data-parentindex='{{parentIndex}}'>
+      <text class='list_item_name'>{{parentItem.exam}}</text>
+      <image src="../../images/arrow.png" class="image"></image>
+    </view>
+    <view class='list_item_box' wx:if='{{parentItem.show}}'>
+      <view class='list_item' wx:for='{{parentItem.message}}' wx:for-item='message' wx:for-index='messageIndex' wx:key='this' data-index='{{index}}' data-parentindex='{{parentIndex}}'>
+        <view class='list_item_name_box'>
+          <view wx:if="{{messageIndex==0}}">时间:</view>
+          <view wx:elif="{{messageIndex==1}}">地点:</view>
+          <view wx:elif="{{messageIndex==2}}">座位号:</view>
+          <text class='list_item_name2'>{{message.messageName}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

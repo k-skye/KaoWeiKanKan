@@ -1,1 +1,44 @@
 /* pages/userInf/userInf.wxss */
+page {
+  background: #f3f7f7;
+}
+.userName{
+  font-size: 50px;
+  font-weight: 900;
+}
+.count{
+  font-size: larger;
+}
+.image{
+  height: 80rpx;
+  width: 80rpx;
+}
+.list_box{
+  margin: 5px;
+}
+.list_name_box {
+  background: #fff;
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  height: 80rpx;
+  align-items: center;
+  padding: 0 25rpx;
+  font-size: 32rpx;
+  border-radius: 100px 100px 0 0;
+}
+.list_item_name {
+  flex: 1;
+}
+
+.list_item_name_box {
+  background: #fff;
+  font-size: 30rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 25rpx 0 50rpx;
+}
+
+.list_item_name2{
+  color: gray;
+}
