@@ -6,7 +6,7 @@
   <view class='list'>
     <view class='list_name_box' catchtap='listTap' data-parentindex='{{parentIndex}}'>
       <text class='list_item_name'>{{parentItem.exam}}</text>
-      <image src="../../images/arrow.png" class="image"></image>
+      <image src="../../images/arrow-down.png" class="image"></image>
     </view>
     <view class='list_item_box' wx:if='{{parentItem.show}}'>
       <view class='list_item' wx:for='{{parentItem.message}}' wx:for-item='message' wx:for-index='messageIndex' wx:key='this' data-index='{{index}}' data-parentindex='{{parentIndex}}'>
