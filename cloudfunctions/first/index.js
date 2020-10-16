@@ -9,13 +9,15 @@ exports.main = async (event, context) => {
   console.log(context)
 
   const wxContext = cloud.getWXContext()
-//需要通过查询openID来取得用户是否绑定
+  let openid=wxContext.OPENID
+  console.log(openid)
+  //需要通过查询openID来取得用户是否绑定
   return {
     event,
-    openid: wxContext.OPENID,
+    openid: openid,
     appid: wxContext.APPID,
     unionid: wxContext.UNIONID,
     env: wxContext.ENV,
-    userI:1
+    userI: 1
   }
 }

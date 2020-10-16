@@ -2,7 +2,7 @@
 <text class="userName">openid：{{openid}}</text>
 <text class="count">你还有{{list.length}}场考试</text>
 
-<block wx:for-items="{{list}}" wx:key="{{item.id}}">
+<block wx:for-items="{{list}}" wx:key="id">
   <view class="kind-list-item">
     <view id="{{item.id}}"  bindtap="kindToggle">
       <view >{{item.name}}</view>
@@ -11,7 +11,8 @@
     </view>
     <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
       <view >
-        <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:for-index='index' wx:key="*item">
+      {{}}
+        <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:for-index='index' wx:key="item">
           <view >
             <view wx:if="{{index==0}}">时间：</view>
             <view wx:if="{{index==1}}">地点：</view>
