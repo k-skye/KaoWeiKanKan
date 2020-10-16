@@ -8,14 +8,14 @@ Page({
 
   },
   logink:function(event){
-    const username=event.detail.value.username
-    const password=event.detail.value.password
-    console.log(password)
+    const s_ID=event.detail.value.username
+    const s_password=event.detail.value.password
+    console.log(s_password)
     wx.cloud.callFunction({
-      name:"logink",
-      data:{username,password},
+      name:"addUser",
+      data:{s_ID,s_password},
       success: res =>{
-        console.log('[云函数]  ', res.result.username)
+        // console.log('[云函数]  ', res.result.username)
         // wx.navigateTo({
         //   url: '',
         // })
