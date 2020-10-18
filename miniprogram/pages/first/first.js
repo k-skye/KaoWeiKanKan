@@ -1,4 +1,5 @@
 // pages/first/first.js
+const app = getApp()
 Page({
   data: {
 
@@ -18,13 +19,15 @@ Page({
       success: res =>{
         console.log('[云函数] [first] 调用成功',res)
         console.log('tuip123-success-first')
-       
+        app.globalData.openID=res.result.openid
+        //嵌套使用云函数，否则会出现调用先后顺序不一致的问题（存疑）
         wx.cloud.callFunction({
           name: 'getUserData',
-          data: {openID:res.result.openid},
+          data: {openID:app.globalData.openID},
           success: res => {
-    
-            console.log('tuip123-success')
+
+            console.log('[云函数] [getUserData] 调用成功',res)
+            console.log('tuip123-success-getUserData')
             console.log(res.result.data[0].flag)
     
             if (res.result.data[0].flag)
@@ -51,7 +54,7 @@ Page({
           },
           fail: err => {
             console.error('[云函数] [getUserData] 调用失败', err)
-            console.error('tuip123-err')
+            console.error('tuip123-err-getUserData')
             wx.showToast({
               title: 'fail',
               icon:'none'
@@ -61,7 +64,7 @@ Page({
 
       },
       fail: err => {
-        console.error('[云函数] [] 调用失败', err)
+        console.error('[云函数] [first] 调用失败', err)
         console.error('tuip123-err-first')
       }
     })

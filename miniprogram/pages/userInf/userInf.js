@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
   list: [{
@@ -41,5 +42,12 @@ kindToggle(e) {
   this.setData({
     list
   })
+},
+onLoad: function (options) {
+  console.log(app.globalData.userInf)
+  this.setData({
+  openid:app.globalData.openID,
+  s_ID:app.globalData.userInf.s_ID
+})
 }
 })

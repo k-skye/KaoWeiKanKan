@@ -1,47 +1,33 @@
 // pages/indexk/indexk.js
+const app = getApp()
 Page({
-
-  
   data: {
-
   },
   logink:function(event){
     const s_ID=event.detail.value.username
     const s_password=event.detail.value.password
     console.log(s_password)
     wx.cloud.callFunction({
-      name: 'first',
-      data: {},
+      name:"addUser",
+      data:{
+        openID:app.globalData.openID,
+        s_ID,
+        s_password},
       success: res =>{
-        console.log('[云函数] [first] 调用成功',res)
-        console.log('tuip123-success-first')
-
-        wx.cloud.callFunction({
-          name:"addUser",
-          data:{
-            openID:res.result.openid,
-            s_ID,
-            s_password},
-          success: res =>{
-            console.log(res.result.flag)
-            if(res.result.flag)
-            {
-              wx.redirectTo({
-                url: '../userInf/userInf',
-              })
-            }  
-          },
-          fail: err => {
-            console.error('[云函数] [login] 调用失败', err)
-          }
-        })
-
+        console.log('[云函数] [addUser] 调用成功',res)
+        console.log('tuip123-success-addUser')
+        if(res.result.flag)
+        {
+          wx.redirectTo({
+            url: '../userInf/userInf',
+          })
+        }  
       },
-        fail: err => {
-          console.error('[云函数] [first] 调用失败', err)
-          console.error('tuip123-err')
-        }
-      })
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+        console.log('tuip123-err-addUser')
+      }
+    })
     
   },
   /**

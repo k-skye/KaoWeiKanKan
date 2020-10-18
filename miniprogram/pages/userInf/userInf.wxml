@@ -1,5 +1,5 @@
 <!--pages/userInf/userInf.wxml-->
-<text class="userName">openid：{{openid}}</text>
+<text class="userName">学号：{{s_ID}}</text>
 <text class="count">你还有{{list.length}}场考试</text>
 
 <block wx:for-items="{{list}}" wx:key="id">
