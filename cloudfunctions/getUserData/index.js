@@ -7,15 +7,9 @@ const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => { 
-  const wxContext = cloud.getWXContext()
-
-  const openid=wxContext.OPENID
-  console.log("tuip123")
-  console.log(openid)
-  
   const Users=db.collection("Users") 
   .where({ 
-    openID : openid
+    openID : event.openID
   }).get(); 
   //当获取数据成功时，新增键值对flag：true 
   if((await Users).data.length!=0)(await Users).data[0]["flag"]=true 

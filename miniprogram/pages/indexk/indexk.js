@@ -1,6 +1,4 @@
 // pages/indexk/indexk.js
-//const db =wx.cloud.database();
-//const userInfo=db.collection('userInfo');
 Page({
 
   
@@ -12,19 +10,39 @@ Page({
     const s_password=event.detail.value.password
     console.log(s_password)
     wx.cloud.callFunction({
-      name:"addUser",
-      data:{s_ID,s_password},
+      name: 'first',
+      data: {},
       success: res =>{
-        // console.log('[云函数]  ', res.result.username)
-        // wx.navigateTo({
-        //   url: '',
-        // })
-        
+        console.log('[云函数] [first] 调用成功',res)
+        console.log('tuip123-success-first')
+
+        wx.cloud.callFunction({
+          name:"addUser",
+          data:{
+            openID:res.result.openid,
+            s_ID,
+            s_password},
+          success: res =>{
+            console.log(res.result.flag)
+            if(res.result.flag)
+            {
+              wx.redirectTo({
+                url: '../userInf/userInf',
+              })
+            }  
+          },
+          fail: err => {
+            console.error('[云函数] [login] 调用失败', err)
+          }
+        })
+
       },
-      fail: err => {
-        console.log('[云函数] [login] 调用失败', err)
-      }
-    })
+        fail: err => {
+          console.error('[云函数] [first] 调用失败', err)
+          console.error('tuip123-err')
+        }
+      })
+    
   },
   /**
    * 生命周期函数--监听页面加载

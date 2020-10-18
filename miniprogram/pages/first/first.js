@@ -1,5 +1,4 @@
 // pages/first/first.js
-const app = getApp()
 Page({
   data: {
 
@@ -14,47 +13,59 @@ Page({
       duration:5000
     })
     wx.cloud.callFunction({
-      name: 'getUserData',
+      name: 'first',
       data: {},
-      success: res => {
-        //console.log('[云函数] [login] user openid: ', res.result.openid)
-        //app.globalData.openid = res.result.openid
-
-
-        console.log('tuip123-success')
-        console.log(res.result.data[0].flag)
-
-        if (res.result.data[0].flag)
-        {
-          app.globalData.userInf = res.result.data[0]
-          wx.showToast({
-            title: 'success',
-            icon:'success'
-          })
-          wx.redirectTo({
-            url: '../userInf/userInf',
-          })
-        }
-        else {
-          wx.showToast({
-            title: 'go to login',
-            icon:'none'
-          })
-          wx.redirectTo({
-            url: '../indexk/indexk',
-          })
-          
+      success: res =>{
+        console.log('[云函数] [first] 调用成功',res)
+        console.log('tuip123-success-first')
+       
+        wx.cloud.callFunction({
+          name: 'getUserData',
+          data: {openID:res.result.openid},
+          success: res => {
+    
+            console.log('tuip123-success')
+            console.log(res.result.data[0].flag)
+    
+            if (res.result.data[0].flag)
+            {
+              app.globalData.userInf = res.result.data[0]
+              wx.showToast({
+                title: 'success',
+                icon: 'success'
+              })
+              wx.redirectTo({
+                url: '../userInf/userInf',
+              })
+            }
+            else {
+              wx.showToast({
+                title: 'go to login',
+                icon:'none'
+              })
+              wx.redirectTo({
+                url: '../indexk/indexk',
+              })
+              
+              }
+          },
+          fail: err => {
+            console.error('[云函数] [getUserData] 调用失败', err)
+            console.error('tuip123-err')
+            wx.showToast({
+              title: 'fail',
+              icon:'none'
+            })
           }
+        })
+
       },
       fail: err => {
-        console.error('[云函数] [getUserData] 调用失败', err)
-        console.log('tuip123-err')
-        wx.showToast({
-          title: 'fail',
-          icon:'none'
-        })
+        console.error('[云函数] [] 调用失败', err)
+        console.error('tuip123-err-first')
       }
     })
+    
   },
 
   /**

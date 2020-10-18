@@ -14,7 +14,6 @@ exports.main = async (event, context) => {
   //  event.username
   //  event.password
    return {
-    event,
-    username
+    "flag":true
    }
 }
