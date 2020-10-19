@@ -30,43 +30,27 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "minifyWXSS": true
   },
   "appid": "wx9ba947e4f2c6fb5c",
   "projectname": "huaguangkaoshi",
-  "libVersion": "2.8.1",
+  "libVersion": "2.13.1",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
     "plugin": {
-      "current": -1,
       "list": []
     },
     "game": {
       "list": []
     },
     "gamePlugin": {
-      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "current": 0,
       "list": [
-        {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide",
-          "query": ""
-        },
         {
           "id": -1,
           "name": "pages/indexk/indexk",
@@ -85,6 +69,7 @@
           "id": -1,
           "name": "pages/userInf/userInf",
           "pathName": "pages/userInf/userInf",
+          "query": "",
           "scene": null
         }
       ]

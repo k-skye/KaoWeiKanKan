@@ -1,0 +1,26 @@
+<!--pages/userInfo/userInfo.wxml-->
+<text class="userName">学号：{{s_ID}}</text>
+<text class="count">你还有{{list.length}}场考试</text>
+
+<block wx:for-items="{{list}}" wx:key="id">
+  <view class="kind-list-item">
+    <view id="{{item.id}}"  bindtap="kindToggle">
+      <view >{{item.name}}</view>
+      <!-- icon -->
+      <view class="navigator-arrow"></view>
+    </view>
+    <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+      <view >
+      {{}}
+        <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:for-index='index' wx:key="item">
+          <view >
+            <view wx:if="{{index==0}}">时间：</view>
+            <view wx:if="{{index==1}}">地点：</view>
+            <view wx:if="{{index==2}}">座位号：</view> 
+            <view >{{page}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</block>

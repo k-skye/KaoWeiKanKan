@@ -1,5 +1,0 @@
-<!--pages/first/first.wxml-->
-<text>pages/first/first.wxml</text>
-<form bindsubmit="getOpenID">
-<button type="primary" form-type="submit">获取登录信息</button>
-</form>
