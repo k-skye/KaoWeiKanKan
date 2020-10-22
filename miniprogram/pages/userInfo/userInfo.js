@@ -2,6 +2,7 @@
 const app = getApp()
 Page({
   data: {
+    s_ID:{},
     list: [{
       id: '1',
       name: '考试1',
@@ -46,5 +47,10 @@ Page({
   },
   onLoad: function (options) {
     console.log(app.globalData.userInfo)
-  }
+    //tuip123 10-22 好像wxml页面不能直接访问app.globaldata，我把学号提取出来
+    var that = this;
+    that.setData({
+      s_ID:app.globalData.userInfo.s_ID
+    })
+  },
 })
