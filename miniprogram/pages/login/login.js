@@ -4,6 +4,7 @@ Page({
   data: {},
   loginSubmit: function (event) {
     const s_ID = event.detail.value.username
+    console.log(event.detail.value.username)
     const s_password = event.detail.value.password
 
     wx.cloud.callFunction({
@@ -14,6 +15,17 @@ Page({
       },
     }).then(res => {
       if (res.result.status === 'ok') {
+        
+        return wx.cloud.callFunction({
+          name: 'getUserData',
+          data: {
+            openID: app.globalData._openid
+          }
+        })
+      }
+    }).then(res=>{
+      if (res.result.status === 'ok') {
+        app.globalData.userInfo = res.result.data
         wx.redirectTo({
           url: '../userInfo/userInfo',
         })
