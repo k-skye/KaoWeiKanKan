@@ -40,14 +40,6 @@
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
     "plugin": {
       "list": []
     },
@@ -58,12 +50,25 @@
       "list": []
     },
     "miniprogram": {
-      "current": -1,
       "list": [
         {
           "id": -1,
-          "name": "pages/login/login",
-          "pathName": "pages/login/login",
+          "name": "pages/indexk/indexk",
+          "pathName": "pages/indexk/indexk",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/first/first",
+          "pathName": "pages/first/first",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/userInf/userInf",
+          "pathName": "pages/userInf/userInf",
           "query": "",
           "scene": null
         }

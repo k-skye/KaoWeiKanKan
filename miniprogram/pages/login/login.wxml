@@ -1,22 +1,26 @@
 <!--pages/login/login.wxml-->
-<view class="head">
-  <view class="view_text">
-    <text class="first_title">华广考试</text>
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<mp-form-page title="登录">
+  <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+    <mp-cells>
+      <mp-cell prop="username" title="学号" ext-class="">
+        <input class="weui-input" bindinput="formInputChange" data-field="username" maxlength="18" placeholder="请输入学号" />
+      </mp-cell>
+      <mp-cell prop="password" title="密码" ext-class="">
+        <input class="weui-input" bindinput="formInputChange" data-field="password" maxlength="18" placeholder="请输入密码" type="password" />
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
+
+  <checkbox-group slot="tips" bindchange="bindAgreeChange">
+      <label class="weui-agree" for="weuiAgree">
+        <view class="weui-agree__text">
+          <checkbox class="weui_checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+          阅读并同意<navigator url="" class="weui-agree__link">《相关条款》</navigator>
+        </view>
+      </label>
+    </checkbox-group>
+  <view slot="button">
+    <button class="weui-btn" type="primary" bindtap="loginSubmit">确定</button>
   </view>
-  <view class="view_text">
-    <text class="second_title">登录</text>
-  </view>
-</view>
-<view class="body">
-  <form bindsubmit="loginSubmit">
-    <view class="view_input">
-      <input class="radius_input" maxlength="18" placeholder="用户名" name="username" />
-    </view>
-    <view class="view_input">
-      <input class="radius_input" maxlength="18" placeholder="密码" name="password" type="password" />
-    </view>
-    <button class="button_class" plain="true" form-type="submit">
-      <image src="../../images/log-in.png"></image>
-    </button>
-  </form>
-</view>
+</mp-form-page>
