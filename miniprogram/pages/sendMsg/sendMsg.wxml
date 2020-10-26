@@ -1,0 +1,3 @@
+<!--pages/sendMsg/sendMsg.wxml-->
+<text>pages/sendMsg/sendMsg.wxml</text>
+<button bindtap="back">back</button>
