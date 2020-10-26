@@ -1,10 +1,9 @@
 //app.js
 App({
   globalData: {
-    _openid:'',
-    userInfo:{}
+    _openid: '',
+    userInfo: {}
   },
-
   onLaunch: function () {
 
     if (!wx.cloud) {
@@ -55,12 +54,13 @@ App({
       wx.hideLoading()
 
       if (res.result.status === 'ok') {
-        
+
         this.globalData.userInfo = res.result.data
-        
-        wx.redirectTo({
+
+        wx.switchTab({
           url: '/pages/userInfo/userInfo',
         })
+
       }
 
     }).catch(err => {

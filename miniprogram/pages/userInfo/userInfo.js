@@ -31,7 +31,6 @@ Page({
       },
     ]
   },
-
   /**
    * 收缩核心代码
    */
@@ -43,7 +42,6 @@ Page({
     //判断编号是否相等，相等的取反，不等的收起
     for (let i = 0, len = list.length; i < len; ++i) {
       if (list[i].id === id) {
-        console.log(list[i])
         list[i].open = !list[i].open
       } else {
         list[i].open = false
@@ -54,11 +52,12 @@ Page({
     })
   },
   onLoad: function (options) {
-    console.log(app.globalData.userInfo)
     //tuip123 10-22 好像wxml页面不能直接访问app.globaldata，我把学号提取出来
     var that = this;
     that.setData({
       s_ID: app.globalData.userInfo.s_ID
     })
-  },
+  }
+
+  
 })

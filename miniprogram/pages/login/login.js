@@ -37,7 +37,7 @@ Page({
         }).then(res => {
           if (res.result.status === 'ok') {
             app.globalData.userInfo = res.result.data
-            wx.redirectTo({
+            wx.switchTab({
               url: '../userInfo/userInfo',
             })
           }
