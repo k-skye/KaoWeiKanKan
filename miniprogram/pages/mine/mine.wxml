@@ -3,7 +3,7 @@
 
 </view>
 <view class="page_body">
-  <mp-cells title="我的" >
+  <mp-cells title="我的">
     <view bindtap="removeBinding">
       <mp-cell title="取消绑定" link>
       </mp-cell>
@@ -15,5 +15,8 @@
       </mp-cell>
     </view>
   </mp-cells>
-
 </view>
+<mp-dialog title="解除绑定" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view>是否取消和教务系统的绑定</view>
+  <view>再次使用需要重新登录</view>
+</mp-dialog>
