@@ -1,14 +1,18 @@
 <!--pages/userInfo/userInfo.wxml-->
-<text class="userName">学号：{{s_ID}}</text>
-<text class="count">你还有{{list.length}}场考试</text>
+<view class="page_head">
+  <view class="userName">学号：{{s_ID}}</view>
+  <view class="count">你还有{{list.length}}场考试</view>
+</view>
 
-<view wx:for="{{list}}" wx:key="index" data-id="index">
-  <view data-index='{{index}}' catchtap='panel'>
-    <mp-cells ext-class="my-cells" title="{{item.name}}" >
-      <mp-cell value="日期" footer="{{item.date}}" wx:if="{{item.open}}"></mp-cell>
-      <mp-cell value="时间" footer="{{item.time}}" wx:if="{{item.open}}"></mp-cell>
-      <mp-cell value="地点" footer="{{item.place}}" wx:if="{{item.open}}"></mp-cell>
-      <mp-cell value="座位号" footer="{{item.seat}}" wx:if="{{item.open}}"></mp-cell>
-    </mp-cells>
+<view class="page_body">
+  <view wx:for="{{list}}" wx:key="index" data-id="index">
+    <view data-index='{{index}}' catchtap='panel'>
+      <mp-cells ext-class="my-cells" title="{{item.name}}">
+        <mp-cell value="日期" footer="{{item.date}}" wx:if="{{item.open}}"></mp-cell>
+        <mp-cell value="时间" footer="{{item.time}}" wx:if="{{item.open}}"></mp-cell>
+        <mp-cell value="地点" footer="{{item.place}}" wx:if="{{item.open}}"></mp-cell>
+        <mp-cell value="座位号" footer="{{item.seat}}" wx:if="{{item.open}}"></mp-cell>
+      </mp-cells>
+    </view>
   </view>
 </view>

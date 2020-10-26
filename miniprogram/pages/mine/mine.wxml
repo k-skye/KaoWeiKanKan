@@ -1,2 +1,19 @@
 <!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class="page_head">
+
+</view>
+<view class="page_body">
+  <mp-cells title="我的" >
+    <view bindtap="removeBinding">
+      <mp-cell title="取消绑定" link>
+      </mp-cell>
+    </view>
+  </mp-cells>
+  <mp-cells>
+    <view bindtap="test">
+      <mp-cell title="提交留言" link>
+      </mp-cell>
+    </view>
+  </mp-cells>
+
+</view>
