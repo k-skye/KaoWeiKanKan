@@ -3,7 +3,6 @@
   <view class="userName">学号：{{s_ID}}</view>
   <view class="count">你还有{{list.length}}场考试</view>
 </view>
-
 <view class="page_body">
   <view wx:for="{{list}}" wx:key="index" data-id="index">
     <view data-index='{{index}}' catchtap='panel'>

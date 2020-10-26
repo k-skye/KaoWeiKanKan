@@ -1,6 +1,5 @@
 <!--pages/mine/mine.wxml-->
 <view class="page_head">
-
 </view>
 <view class="page_body">
   <mp-cells title="我的">

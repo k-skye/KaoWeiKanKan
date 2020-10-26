@@ -78,6 +78,13 @@
           "id": -1,
           "name": "pages/mine/mine",
           "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/sendMsg/sendMsg",
+          "pathName": "pages/sendMsg/sendMsg",
           "scene": null
         }
       ]
