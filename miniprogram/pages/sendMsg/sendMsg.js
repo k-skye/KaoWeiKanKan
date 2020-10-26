@@ -8,6 +8,7 @@ Page({
     this.setData({
       success: '已经收到您的反馈'
     })
+    sleep(1000)
     wx.navigateBack({
       delta: 0,
     })
@@ -21,3 +22,12 @@ Page({
     })
   },
 })
+function sleep(numberMillis) { 
+  var now = new Date(); 
+  var exitTime = now.getTime() + numberMillis; 
+  while (true) { 
+  now = new Date(); 
+  if (now.getTime() > exitTime) 
+  return; 
+  } 
+  }
