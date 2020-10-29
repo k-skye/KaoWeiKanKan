@@ -52,12 +52,14 @@ Page({
       //TODO 考试名等bug修复后重新设置
       var list = [];
       var stuExam = res.result.data.stuExam
-      var exam = res.result.data.exam
+      var exams = res.result.data.exams
+      console.log(stuExam)
+      console.log(exams)
       for (let i = 0; i < stuExam.length; i++) {
         var vote = {};
         vote.id=i
-        vote.name='考试'+i
-        //vote.name=exam[i].e_name
+        //vote.name='考试'+i
+        vote.name=exams[i].e_name
         vote.room=stuExam[i].e_room
         vote.seat=stuExam[i].e_seat
         vote.open=false
