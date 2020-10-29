@@ -9,7 +9,7 @@
       <mp-cells ext-class="my-cells" title="{{item.name}}">
         <mp-cell value="日期" footer="{{item.date}}" wx:if="{{item.open}}"></mp-cell>
         <mp-cell value="时间" footer="{{item.time}}" wx:if="{{item.open}}"></mp-cell>
-        <mp-cell value="地点" footer="{{item.place}}" wx:if="{{item.open}}"></mp-cell>
+        <mp-cell value="地点" footer="{{item.room}}" wx:if="{{item.open}}"></mp-cell>
         <mp-cell value="座位号" footer="{{item.seat}}" wx:if="{{item.open}}"></mp-cell>
       </mp-cells>
     </view>

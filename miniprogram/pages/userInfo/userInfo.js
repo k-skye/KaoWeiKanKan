@@ -4,30 +4,13 @@ Page({
   data: {
     s_ID: {},
     list: [{
-        id: 1,
-        name: '考试1',
+        id: 0,
+        name: '考试示例',
         open: true,
         date: '2020-1-1',
         time: '9:00~11:00',
-        place: 'A1-101',
+        room: 'A1-101',
         seat: '01'
-      },
-      {
-        id: 2,
-        name: '考试2',
-        open: false,
-        date: '2020-2-1',
-        time: '9:00~11:00',
-        place: 'A2-201',
-        seat: '22'
-      }, {
-        id: 3,
-        name: '考试3',
-        open: false,
-        date: '2020-3-1',
-        time: '9:00~11:00',
-        place: 'A3-301',
-        seat: '33'
       },
     ]
   },
@@ -36,9 +19,10 @@ Page({
    */
   panel: function (e) {
     //获取到元素的id值
-    var id = e.currentTarget.dataset.index+1;
+    var id = e.currentTarget.dataset.index;
+    console.log(id)
     //获取到全部数据
-    var list = this.data.list;
+    let list = this.data.list;
     //判断编号是否相等，相等的取反，不等的收起
     for (let i = 0, len = list.length; i < len; ++i) {
       if (list[i].id === id) {
@@ -57,7 +41,40 @@ Page({
     that.setData({
       s_ID: app.globalData.userInfo.s_ID
     })
+
+    console.log(this.data.s_ID)
+    wx.cloud.callFunction({
+      name: "getExamData",
+      data: {
+        s_ID: app.globalData.userInfo.s_ID
+      }
+    }).then(res => {
+      //TODO 考试名等bug修复后重新设置
+      var list = [];
+      var stuExam = res.result.data.stuExam
+      var exam = res.result.data.exam
+      for (let i = 0; i < stuExam.length; i++) {
+        var vote = {};
+        vote.id=i
+        vote.name='考试'+i
+        //vote.name=exam[i].e_name
+        vote.room=stuExam[i].e_room
+        vote.seat=stuExam[i].e_seat
+        vote.open=false
+        var time=stuExam[i].e_time.split('/')
+        vote.date=time[0]+'-'+time[1]+'-'+time[2]
+        vote.time=time[3]
+        console.log(vote)
+        list.push(vote)
+      }
+      //仅第一项保留是true即可
+      list[0].open=true
+      this.setData({
+        list
+      })
+
+    })
   }
 
-  
+
 })
