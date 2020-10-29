@@ -20,7 +20,6 @@ Page({
   panel: function (e) {
     //获取到元素的id值
     var id = e.currentTarget.dataset.index;
-    console.log(id)
     //获取到全部数据
     let list = this.data.list;
     //判断编号是否相等，相等的取反，不等的收起
@@ -53,8 +52,6 @@ Page({
       var list = [];
       var stuExam = res.result.data.stuExam
       var exams = res.result.data.exams
-      console.log(stuExam)
-      console.log(exams)
       for (let i = 0; i < stuExam.length; i++) {
         var vote = {};
         vote.id=i
