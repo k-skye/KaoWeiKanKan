@@ -39,7 +39,6 @@ Page({
   },
   //查询所有信息
   selectAll: function () {
-    console.log('tuip123-All')
     var list = [];
     var stuExam = this.data.stuExam
     var exams = this.data.exams
@@ -64,7 +63,6 @@ Page({
   },
   //查询本周
   selectThis: function () {
-    console.log('tuip123-this')
     let start = this.getTime(0)
     let fin = this.getTime(-6)
     var list = [];
@@ -99,7 +97,6 @@ Page({
   },
   //查询下周
   selectNext: function () {
-    console.log('tuip123-next')
     let start = this.getTime(-7)
     let fin = this.getTime(-13)
     var list = [];

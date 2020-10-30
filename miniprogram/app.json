@@ -8,10 +8,14 @@
   "tabBar": {
     "list": [{
         "pagePath": "pages/userInfo/userInfo",
+        "iconPath": "images/list.png",
+        "selectedIconPath": "images/listSelect.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/mine/mine",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mineSelect.png",
         "text": "我的"
       }
     ]

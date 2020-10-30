@@ -1,13 +1,15 @@
 <!--pages/userInfo/userInfo.wxml-->
 <view class="page_head">
   <view class="userName">学号：{{s_ID}}</view>
+  <radio-group class="weui-flex">
+    <radio checked="true" bindtap="selectAll" class="weui-flex__item">所有</radio>
+    <radio bindtap="selectNext" class="weui-flex__item">下一周</radio>
+    <radio bindtap="selectThis" class="weui-flex__item">这一周</radio>
+  </radio-group>
+
   <view class="count">你还有{{list.length}}场考试</view>
 </view>
-<radio-group class="">
-  <radio checked="true" bindtap="selectAll">所有</radio>
-  <radio bindtap="selectNext">下一周</radio>
-  <radio bindtap="selectThis">这一周</radio>
-</radio-group>
+
 <view class="page_body">
   <view wx:for="{{list}}" wx:key="index" data-id="index">
     <view data-index='{{index}}' catchtap='panel'>

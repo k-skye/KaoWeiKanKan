@@ -11,6 +11,6 @@
   </view>
 
   <view slot="button">
-    <button bindtap="back">提交并返回</button>
+    <button bindtap="back" type="primary">提交并返回</button>
   </view>
 </mp-form-page>
