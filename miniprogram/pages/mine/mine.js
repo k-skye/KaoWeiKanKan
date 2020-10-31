@@ -33,5 +33,10 @@ Page({
         dialogShow: false,
       })
     }
-  },
+  },onLoad:function(){
+    var that = this;
+    that.setData({
+      s_ID: app.globalData.userInfo.s_ID
+    })
+  }
 })

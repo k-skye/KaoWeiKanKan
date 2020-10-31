@@ -2,12 +2,13 @@
 <view class="page_head">
   <view class="userName">学号：{{s_ID}}</view>
   <radio-group class="weui-flex">
-    <radio checked="true" bindtap="selectAll" class="weui-flex__item">所有</radio>
+    <radio checked="true" bindtap="selectThis" class="weui-flex__item">这一周</radio>
     <radio bindtap="selectNext" class="weui-flex__item">下一周</radio>
-    <radio bindtap="selectThis" class="weui-flex__item">这一周</radio>
+    <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
+    <radio bindtap="selectFinished" class="weui-flex__item">已考完</radio>
   </radio-group>
 
-  <view class="count">你还有{{list.length}}场考试</view>
+  <view class="count">{{temp}}{{list.length}}场考试</view>
 </view>
 
 <view class="page_body">
