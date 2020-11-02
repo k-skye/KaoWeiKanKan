@@ -145,7 +145,7 @@ Page({
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
-    let date = now.getDate();
+    let date = now.getDate()-1;
     let fin = {
       year,
       month,
