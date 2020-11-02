@@ -142,6 +142,9 @@ Page({
     })
   },
   selectFinished: function () {
+    this.setData({
+      temp:"你已经完成"
+    })
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
@@ -177,8 +180,7 @@ Page({
         list[0].open = true
       }
       this.setData({
-        list,
-        temp:'你已经完成'
+        list
       })
     }
   },
