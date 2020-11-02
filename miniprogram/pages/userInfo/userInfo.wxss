@@ -1,12 +1,31 @@
 /* pages/userInfo/userInfo.wxss */
 page {
   background: #f3f7f7;
+  margin: 0 5rpx;
 }
-.userName{
-  font-size: 50px;
-  font-weight: 900;
+.infoHead{
+  margin: 5rpx 20rpx;
 }
 .count{
-  font-size: larger;
+  font-size: 65rpx;
+  color: gray;
+  margin-top: -35rpx;
 }
-
+.countNumber{
+  font-size: 85rpx;
+  color: black;
+}
+.userName{
+  font-size: 65rpx;
+}
+.weui-flex{
+  margin: 15rpx 40rpx 0 40rpx;
+}
+/* .page_body{
+  margin: 50rpx;
+  background-color: white;
+  border-radius: 30rpx;
+}
+.weui-cells__title{
+  font-size: 35rpx;
+} */

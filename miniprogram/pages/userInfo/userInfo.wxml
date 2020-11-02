@@ -1,14 +1,17 @@
 <!--pages/userInfo/userInfo.wxml-->
 <view class="page_head">
-  <view class="userName">学号：{{s_ID}}</view>
+  <view class="infoHead">
+    <view class="userName">空白</view>
+    <!-- 记得s_name -->
+    <view class="count">{{temp}}<span class="countNumber">{{list.length}}</span>场考试</view>
+  </view>
   <radio-group class="weui-flex">
-    <radio checked="true" bindtap="selectThis" class="weui-flex__item">这一周</radio>
-    <radio bindtap="selectNext" class="weui-flex__item">下一周</radio>
+    <radio checked="true" bindtap="selectThis" class="weui-flex__item">本周</radio>
+    <radio bindtap="selectNext" class="weui-flex__item">下周</radio>
     <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
     <radio bindtap="selectFinished" class="weui-flex__item">已考完</radio>
   </radio-group>
 
-  <view class="count">{{temp}}{{list.length}}场考试</view>
 </view>
 
 <view class="page_body">
