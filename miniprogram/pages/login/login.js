@@ -13,6 +13,25 @@ Page({
     }, ]
   },
   loginSubmit: function (event) {
+    //tuip123 11-05 getuserinfo
+    wx.getSetting({
+      success: function(res) {
+          // 查看是否授权
+         if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取用户信息
+            wx.getUserInfo({
+               success: function(res) {
+                   console.log(res)
+               },
+               fail: function(error) {
+                   console.log(error)
+               }
+            });
+          } else {
+          }
+      }
+  })
+
     if (this.data.isAgree) {
       if (this.data.formData.username && this.data.formData.password) {
         const s_ID = this.data.formData.username
@@ -68,4 +87,33 @@ Page({
       isAgree: !!e.detail.value.length
     });
   },
+  // 点击授权按钮，返回的信息
+bindGetUserInfo: function(e) {
+  console.log(e.detail.userInfo)
+},
+
+// 代码中调用接口获取用户信息
+fetchUserInfo:function(){
+  wx.getSetting({
+      success: function(res) {
+          // 隐藏授权 button
+          
+          // 查看是否授权
+         if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取用户信息
+            wx.getUserInfo({
+               success: function(res) {
+                   console.log(res)
+               },
+               fail: function(error) {
+                   console.log(error)
+               }
+            });
+          } else {
+             // 显示授权 button
+             
+          }
+      }
+  });
+}
 })
