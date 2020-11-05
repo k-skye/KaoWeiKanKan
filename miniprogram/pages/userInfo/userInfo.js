@@ -21,21 +21,17 @@ Page({
   },
   //收缩的代码
   panel: function (e) {
-    //获取到元素的id值
-    var id = e.currentTarget.dataset.index;
-    //获取到全部数据
-    let list = this.data.list;
-    //判断编号是否相等，相等的取反，不等的收起
-    for (let i = 0, len = list.length; i < len; ++i) {
-      if (list[i].id === id) {
-        list[i].open = !list[i].open
-      } else {
-        list[i].open = false
-      }
-    };
-    this.setData({
-      list
-    })
+    var id = e.currentTarget.id, list = this.data.list;
+        for (var i = 0, len = list.length; i < len; ++i) {
+            if (list[i].id == id) {
+                list[i].open = !list[i].open
+            } else {
+                list[i].open = false
+            }
+        }
+        this.setData({
+            list: list
+        });
   },
   //查询所有信息
   selectAll: function () {
@@ -185,10 +181,8 @@ Page({
     }
   },
   onLoad: function (options) {
-    //tuip123 10-22 好像wxml页面不能直接访问app.globaldata，我把学号提取出来
-    var that = this;
-    that.setData({
-      s_ID: app.globalData.userInfo.s_ID
+    wx.getUserInfo({
+      success:function(res){console.log(res)}
     })
     //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
     wx.cloud.callFunction({

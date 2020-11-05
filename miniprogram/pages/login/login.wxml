@@ -15,11 +15,12 @@
   <checkbox-group slot="tips" bindchange="bindAgreeChange">
       <label class="weui-agree" for="weuiAgree">
         <view class="weui-agree__text">
-          <checkbox class="weui_checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+          <checkbox class="weui_checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}"/>
           阅读并同意<navigator url="" class="weui-agree__link">《相关条款》</navigator>
         </view>
       </label>
     </checkbox-group>
+    
   <view slot="button">
     <button class="weui-btn" type="primary" bindtap="loginSubmit">确定</button>
   </view>
