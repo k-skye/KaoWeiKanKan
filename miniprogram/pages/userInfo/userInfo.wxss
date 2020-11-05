@@ -21,7 +21,7 @@ page {
   font-size: 65rpx;
 }
 .infomation_title{
-  margin: 0 20rpx;
+  margin: -20rpx 15rpx ;
 }
 .infomation_list{
   margin: 0 30rpx;
