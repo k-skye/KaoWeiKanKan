@@ -28,9 +28,15 @@ Page({
       })
     }
     else if(e.detail.index === 1){
-      console.log('解除绑定')
-      this.setData({
-        dialogShow: false,
+      wx.cloud.callFunction({
+        name:"unbind"
+      }).then(res=>{
+        this.setData({
+          dialogShow: false,
+        })
+        wx.redirectTo({
+          url: '/pages/login/login',
+        })
       })
     }
   },onLoad:function(){
