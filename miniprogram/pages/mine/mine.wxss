@@ -1,6 +1,9 @@
 /* pages/mine/mine.wxss */
 page {
   background: #f3f7f7;
+  
+}
+.page_body{
   margin: 5rpx 30rpx;
 }
 .user_name{
