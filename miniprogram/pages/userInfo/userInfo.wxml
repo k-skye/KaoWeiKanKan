@@ -2,7 +2,6 @@
 <view class="page_head">
   <view class="info_head">
     <open-data type="userNickName" class="user_name"></open-data>
-    <!-- 记得s_name -->
     <view class="count">{{temp}}<span class="count_number">{{list.length}}</span>场考试</view>
   </view>
   <radio-group class="weui-flex">
