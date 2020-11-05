@@ -14,23 +14,7 @@ Page({
   },
   loginSubmit: function (event) {
     //tuip123 11-05 getuserinfo
-    wx.getSetting({
-      success: function(res) {
-          // 查看是否授权
-         if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取用户信息
-            wx.getUserInfo({
-               success: function(res) {
-                   console.log(res)
-               },
-               fail: function(error) {
-                   console.log(error)
-               }
-            });
-          } else {
-          }
-      }
-  })
+    
 
     if (this.data.isAgree) {
       if (this.data.formData.username && this.data.formData.password) {

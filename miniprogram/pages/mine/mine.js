@@ -9,8 +9,7 @@ Page({
       text: '解除绑定'
     }],
   },
-  removeBinding: function () {
-    console.log(app.globalData._openid)
+  unbind: function () {
     this.setData({
       dialogShow: true
     })

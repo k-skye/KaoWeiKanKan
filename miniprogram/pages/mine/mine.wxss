@@ -1,1 +1,8 @@
 /* pages/mine/mine.wxss */
+page {
+  background: #f3f7f7;
+  margin: 5rpx 30rpx;
+}
+.user_name{
+  font-size: 65rpx;
+}

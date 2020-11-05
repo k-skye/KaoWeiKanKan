@@ -2,7 +2,7 @@
 App({
   globalData: {
     _openid: '',
-    userInfo: null
+    userInfo: {}
   },
   onLaunch: function () {
 

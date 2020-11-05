@@ -2,8 +2,9 @@
 <view class="page_head">
 </view>
 <view class="page_body">
+  <open-data type="userNickName" class="user_name"></open-data>
   <mp-cells title="学号：{{s_ID}}">
-    <view bindtap="removeBinding">
+    <view bindtap="unbind">
       <mp-cell title="取消绑定" link>
       </mp-cell>
     </view>
