@@ -17,7 +17,8 @@ Page({
       //   room: 'A1-101',
       //   seat: '01'
       // }, 
-    ]
+    ],
+    islogin:false
   },
   //收缩的代码
   panel: function (e) {
@@ -180,24 +181,97 @@ Page({
       })
     }
   },
+
   onLoad: function (options) {
-    wx.getUserInfo({
-      success:function(res){console.log(res)}
+    wx.showLoading({
+      title: '正在登录',
     })
-    //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
     wx.cloud.callFunction({
-      name: "getExamData",
-      data: {
-        s_ID: app.globalData.userInfo.s_ID
-      }
-    }).then(res => {
-      if (res.result.data != null) {
+      name:'getOpenid'
+    }).then(res=>{
+      app.globalData._openid=res.result._openid
+      return wx.cloud.callFunction({
+        name:'getUserData',
+        data:{
+          OPENID:app.globalData._openid
+        }
+      })
+    }).then(res=>{
+      if(res.result.status==='ok')
+      {
+        app.globalData.userInfo=res.result.data
+        app.globalData.islogin=true
         this.setData({
-          stuExam: res.result.data.stuExam,
-          exams: res.result.data.exams
+          islogin:true
         })
       }
+      else{
+        app.globalData.islogin=false
+        this.setData({
+          islogin:false
+        })
+      }
+      return wx.cloud.callFunction({
+        name: "getExamData",
+        data: {
+          s_ID: app.globalData.userInfo.s_ID
+        }
+      })
+    }).then(res=>{
+      //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
+      if(res.result.date!=null){
+        this.setData({
+               stuExam: res.result.data.stuExam,
+               exams: res.result.data.exams
+             })
+      }
       this.selectThis()
+       wx.hideLoading()
+    })
+    .catch(err => {
+      console.error('[云函数]调用失败', err)
+      wx.showToast({
+        title: 'fail',
+        icon: 'none'
+      })
+    })
+  },
+  onShow:function(){
+    wx.showLoading({
+      title: '正在加载',
+    })
+    wx.cloud.callFunction({
+      name:'getOpenid'
+    }).then(res=>{
+      app.globalData._openid=res.result._openid
+      return wx.cloud.callFunction({
+        name:'getUserData',
+        data:{
+          OPENID:app.globalData._openid
+        }
+      })
+    }).then(res=>{
+      if(res.result.status==='ok')
+      {
+        app.globalData.userInfo=res.result.data
+        app.globalData.islogin=true
+        this.setData({
+          islogin:true
+        })
+      }
+      else{
+        app.globalData.islogin=false
+        this.setData({
+          islogin:false
+        })
+      }
+      wx.hideLoading()
+    }).catch(err => {
+      console.error('[云函数]调用失败', err)
+      wx.showToast({
+        title: 'fail',
+        icon: 'none'
+      })
     })
   },
   // 获取时间的代码

@@ -1,22 +1,41 @@
 <!--pages/mine/mine.wxml-->
-<view class="page_head">
+<view wx:if="{{islogin}}">
+  <view class="page_head">
+  </view>
+  <view class="page_body">
+    <open-data type="userNickName" class="user_name"></open-data>
+    <mp-cells title="学号：{{s_ID}}">
+      <view bindtap="unbind">
+        <mp-cell title="取消绑定" link>
+        </mp-cell>
+      </view>
+    </mp-cells>
+    <mp-cells>
+      <view bindtap="sentMessage">
+        <mp-cell title="提交留言" link>
+        </mp-cell>
+      </view>
+    </mp-cells>
+  </view>
+  <mp-dialog title="解除绑定" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+    <view>是否取消和教务系统的绑定</view>
+    <view>再次使用需要重新登录</view>
+  </mp-dialog>
 </view>
-<view class="page_body">
-  <open-data type="userNickName" class="user_name"></open-data>
-  <mp-cells title="学号：{{s_ID}}">
-    <view bindtap="unbind">
-      <mp-cell title="取消绑定" link>
-      </mp-cell>
-    </view>
-  </mp-cells>
-  <mp-cells>
-    <view bindtap="test">
-      <mp-cell title="提交留言" link>
-      </mp-cell>
-    </view>
-  </mp-cells>
+<view wx:if="{{!islogin}}">
+  <view class="page_body">
+    <open-data type="userNickName" class="user_name"></open-data>
+    <mp-cells title="未绑定">
+      <view bindtap="bind">
+        <mp-cell title="前往绑定" link>
+        </mp-cell>
+      </view>
+    </mp-cells>
+    <mp-cells>
+      <view bindtap="sentMessage">
+        <mp-cell title="提交留言" link>
+        </mp-cell>
+      </view>
+    </mp-cells>
+  </view>
 </view>
-<mp-dialog title="解除绑定" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
-  <view>是否取消和教务系统的绑定</view>
-  <view>再次使用需要重新登录</view>
-</mp-dialog>

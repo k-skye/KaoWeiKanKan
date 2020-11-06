@@ -14,8 +14,6 @@ Page({
   },
   loginSubmit: function (event) {
     //tuip123 11-05 getuserinfo
-    
-
     if (this.data.isAgree) {
       if (this.data.formData.username && this.data.formData.password) {
         const s_ID = this.data.formData.username

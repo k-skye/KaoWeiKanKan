@@ -2,6 +2,8 @@
 page {
   background: #f3f7f7;
   
+}.page_head{
+  margin: 5rpx 25rpx;
 }
 .page_body{
   margin: 5rpx 30rpx;

@@ -1,49 +1,60 @@
 <!--pages/userInfo/userInfo.wxml-->
-<view class="page_head">
-  <view class="info_head">
-    <open-data type="userNickName" class="user_name"></open-data>
-    <view class="count">{{temp}}<span class="count_number">{{list.length}}</span>场考试</view>
+<view wx:if="{{islogin}}">
+  <view class="page_head">
+    <view class="info_head">
+      <open-data type="userNickName" class="user_name"></open-data>
+      <view class="count">{{temp}}<span class="count_number">{{list.length}}</span>场考试</view>
+    </view>
+    <radio-group class="weui-flex">
+      <radio checked="true" bindtap="selectThis" class="weui-flex__item">本周</radio>
+      <radio bindtap="selectNext" class="weui-flex__item">下周</radio>
+      <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
+      <radio bindtap="selectFinished" class="weui-flex__item">已考完</radio>
+    </radio-group>
   </view>
-  <radio-group class="weui-flex">
-    <radio checked="true" bindtap="selectThis" class="weui-flex__item">本周</radio>
-    <radio bindtap="selectNext" class="weui-flex__item">下周</radio>
-    <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
-    <radio bindtap="selectFinished" class="weui-flex__item">已考完</radio>
-  </radio-group>
-</view>
 
-<view class="page_body">
-  <view class="kind-list">
-    <block class="body_block" wx:for="{{list}}" wx:key="id">
-      <view class="kind-list__item">
-        <view id="{{item.id}}" bindtap="panel">
-        <view  class="kind-list__item-hd {{item.open ? '':'kind-list__item-hd_hind'}} infomation_title">
-          <view class="weui-flex__item">{{item.name}}</view>
-        </view>
-        <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
-          <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+  <view class="page_body">
+    <view class="kind-list">
+      <block class="body_block" wx:for="{{list}}" wx:key="id">
+        <view class="kind-list__item">
+          <view id="{{item.id}}" bindtap="panel">
+            <view class="kind-list__item-hd {{item.open ? '':'kind-list__item-hd_hind'}} infomation_title">
+              <view class="weui-flex__item">{{item.name}}</view>
+            </view>
+            <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+              <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
 
-            <view class="weui-cell weui-cell_access infomation_list">
-              <view class="weui-cell__bd " wx:if="{{item.open}}">日期：</view>
-              <view class="infomation_details" wx:if="{{item.open}}">{{item.date}}</view>
-            </view>
-            <view class="weui-cell weui-cell_access infomation_list">
-              <view class="weui-cell__bd " wx:if="{{item.open}}">时间：</view>
-              <view class="infomation_details" wx:if="{{item.open}}">{{item.time}}</view>
-            </view>
-            <view class="weui-cell weui-cell_access infomation_list">
-              <view class="weui-cell__bd " wx:if="{{item.open}}">教室：</view>
-              <view class="infomation_details" wx:if="{{item.open}}">{{item.room}}</view>
-            </view>
-            <view class="weui-cell weui-cell_access infomation_list">
-              <view class="weui-cell__bd" wx:if="{{item.open}}">座位号：</view>
-              <view class="infomation_details" wx:if="{{item.open}}">{{item.seat}}</view>
-            </view>
+                <view class="weui-cell weui-cell_access infomation_list">
+                  <view class="weui-cell__bd " wx:if="{{item.open}}">日期：</view>
+                  <view class="infomation_details" wx:if="{{item.open}}">{{item.date}}</view>
+                </view>
+                <view class="weui-cell weui-cell_access infomation_list">
+                  <view class="weui-cell__bd " wx:if="{{item.open}}">时间：</view>
+                  <view class="infomation_details" wx:if="{{item.open}}">{{item.time}}</view>
+                </view>
+                <view class="weui-cell weui-cell_access infomation_list">
+                  <view class="weui-cell__bd " wx:if="{{item.open}}">教室：</view>
+                  <view class="infomation_details" wx:if="{{item.open}}">{{item.room}}</view>
+                </view>
+                <view class="weui-cell weui-cell_access infomation_list">
+                  <view class="weui-cell__bd" wx:if="{{item.open}}">座位号：</view>
+                  <view class="infomation_details" wx:if="{{item.open}}">{{item.seat}}</view>
+                </view>
 
+              </view>
+            </view>
           </view>
         </view>
-      </view>
-      </view>
-    </block>
+      </block>
+    </view>
+  </view>
+</view>
+<view wx:if="{{!islogin}}">
+  <view class="page_head">
+    <view class="info_head">
+      <open-data type="userNickName" class="user_name"></open-data>
+      <view class="un_login">抱歉，你还没有绑定</view>
+      <view class="un_login">请先到"我的"页面进行绑定</view>
+    </view>
   </view>
 </view>

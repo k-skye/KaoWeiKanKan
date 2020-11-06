@@ -13,6 +13,11 @@ page {
   color: gray;
   margin-top: -35rpx;
 }
+.un_login{
+  font-size: 50rpx;
+  color: gray;
+  margin-top: -25rpx;
+}
 .count_number{
   font-size: 85rpx;
   color: black;

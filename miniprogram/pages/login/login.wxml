@@ -3,10 +3,10 @@
 <mp-form-page title="登录">
   <mp-form id="form" rules="{{rules}}" models="{{formData}}">
     <mp-cells>
-      <mp-cell prop="username" title="学号" ext-class="">
+      <mp-cell prop="username" title="学号">
         <input class="weui-input" bindinput="formInputChange" data-field="username" maxlength="18" placeholder="请输入学号" />
       </mp-cell>
-      <mp-cell prop="password" title="密码" ext-class="">
+      <mp-cell prop="password" title="密码">
         <input class="weui-input" bindinput="formInputChange" data-field="password" maxlength="18" placeholder="请输入密码" type="password" />
       </mp-cell>
     </mp-cells>

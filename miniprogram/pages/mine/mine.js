@@ -8,13 +8,19 @@ Page({
     }, {
       text: '解除绑定'
     }],
+    islogin:null
   },
   unbind: function () {
     this.setData({
       dialogShow: true
     })
   },
-  test: function () {
+  bind: function () {
+    wx.redirectTo({
+      url: '/pages/login/login',
+    })
+  },
+  sentMessage: function () {
     wx.navigateTo({
       url: '../../pages/sendMsg/sendMsg',
     })
@@ -41,7 +47,8 @@ Page({
   },onLoad:function(){
     var that = this;
     that.setData({
-      s_ID: app.globalData.userInfo.s_ID
+      s_ID: app.globalData.userInfo.s_ID,
+      islogin:app.globalData.islogin
     })
   }
 })

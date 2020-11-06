@@ -2,6 +2,9 @@
 page {
   background: #f3f7f7;
 }
+.form{
+  background: #f3f7f7;
+}
 .view_input{
   width:80%;
   margin:20px auto auto auto;
