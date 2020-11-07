@@ -3,7 +3,7 @@ page {
   margin: 0 5rpx;
 }
 .page_head{
-  margin-bottom: 50rpx;
+  margin-bottom: 40rpx;
 }
 .page_body{
   margin: 10rpx 30rpx ;
