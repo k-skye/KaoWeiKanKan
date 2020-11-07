@@ -1,9 +1,6 @@
 /* pages/login/login.wxss */
 page {
-  background: #f3f7f7;
-}
-.form{
-  background: #f3f7f7;
+  background: #FFFFFF;
 }
 .view_input{
   width:80%;

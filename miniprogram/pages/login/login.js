@@ -10,7 +10,8 @@ Page({
         required: true,
         message: '多选列表是必选项'
       },
-    }, ]
+    }, ],
+    errTemp:null
   },
   loginSubmit: function (event) {
     //TODO 添加多绑定的判定
@@ -19,16 +20,29 @@ Page({
       if (this.data.formData.username && this.data.formData.password) {
         const s_ID = this.data.formData.username
         const s_password = this.data.formData.password
-
         wx.cloud.callFunction({
-          name: "addUser",
-          data: {
-            s_ID,
-            s_password
-          },
+          name:"isBinded",
+          data:{s_ID}
+        }).then(res=>{
+          if(res.result.msg==='不存在该用户')
+          {
+            this.setData({
+              errTemp:true
+            })
+            return wx.cloud.callFunction({
+              name:'addUser',
+              data:{
+                s_ID,
+                s_password
+              },
+            })
+          }
+          else {this.setData({
+            error: '该账号已经被绑定',
+            errTemp:false
+        })}
         }).then(res => {
-          if (res.result.status === 'ok') {
-
+          if (this.data.errTemp && res.result.status === 'ok') {
             return wx.cloud.callFunction({
               name: 'getUserData',
               data: {
@@ -37,15 +51,15 @@ Page({
             })
           }
         }).then(res => {
-          if (res.result.status === 'ok') {
+          if (this.data.errTemp && res.result.status === 'ok') {
             app.globalData.userInfo = res.result.data
             wx.switchTab({
               url: '../userInfo/userInfo',
             })
           }
-        }).catch(err => {
-          console.error('[云函数] 调用失败', err)
-          console.log('tuip123-err-addUser')
+          
+        }).catch(err=>{
+          console.error(err)
         })
       }else{this.setData({
         error: '学号或者密码不能为空'
