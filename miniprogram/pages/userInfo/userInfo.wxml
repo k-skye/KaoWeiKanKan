@@ -23,24 +23,30 @@
             </view>
             <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
               <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
-
                 <view class="weui-cell weui-cell_access infomation_list">
-                  <view class="weui-cell__bd " wx:if="{{item.open}}">日期：</view>
-                  <view class="infomation_details" wx:if="{{item.open}}">{{item.date}}</view>
+                  <view class="weui-cell__bd ">日期：</view>
+                  <view class="infomation_details">{{item.date}}</view>
                 </view>
                 <view class="weui-cell weui-cell_access infomation_list">
-                  <view class="weui-cell__bd " wx:if="{{item.open}}">时间：</view>
-                  <view class="infomation_details" wx:if="{{item.open}}">{{item.time}}</view>
+                  <view class="weui-cell__bd ">时间：</view>
+                  <view class="infomation_details">{{item.time}}</view>
                 </view>
                 <view class="weui-cell weui-cell_access infomation_list">
-                  <view class="weui-cell__bd " wx:if="{{item.open}}">教室：</view>
-                  <view class="infomation_details" wx:if="{{item.open}}">{{item.room}}</view>
+                  <view class="weui-cell__bd ">教室：</view>
+                  <view class="infomation_details">{{item.room}}</view>
                 </view>
                 <view class="weui-cell weui-cell_access infomation_list">
-                  <view class="weui-cell__bd" wx:if="{{item.open}}">座位号：</view>
-                  <view class="infomation_details" wx:if="{{item.open}}">{{item.seat}}</view>
+                  <view class="weui-cell__bd">座位号：</view>
+                  <view class="infomation_details">{{item.seat}}</view>
                 </view>
-
+                <view class="weui-cell weui-cell_access infomation_list" wx:if="{{item.ring}}">
+                  <view class="weui-cell__bd"></view>
+                  <view class="infomation_details" catchtap="ring" data-exam="{{item}}">
+                    <picker range="{{ringList}}" bindchange='pickerChange'> 
+                    <image src="../../images/ring.png" style="width: 50rpx; height: 50rpx;" />
+                  </picker>
+                  </view>
+                </view>
               </view>
             </view>
           </view>

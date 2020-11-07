@@ -2,7 +2,7 @@
 const app = getApp()
 Page({
   data: {
-    temp:'你还有',
+    temp: '你还有',
     s_ID: {},
     stuExam: {},
     exams: {},
@@ -15,24 +15,28 @@ Page({
       //   date: '2020-1-1',
       //   time: '9:00~11:00',
       //   room: 'A1-101',
-      //   seat: '01'
+      //   seat: '01',
+      //   ring: true
       // }, 
     ],
-    islogin:false
+    islogin: false,
+    ringList:['前一天晚八点','当天早八点','提前一小时'],
+    ringExam:null
   },
   //收缩的代码
   panel: function (e) {
-    var id = e.currentTarget.id, list = this.data.list;
-        for (var i = 0, len = list.length; i < len; ++i) {
-            if (list[i].id == id) {
-                list[i].open = !list[i].open
-            } else {
-                list[i].open = false
-            }
-        }
-        this.setData({
-            list: list
-        });
+    var id = e.currentTarget.id,
+      list = this.data.list;
+    for (var i = 0, len = list.length; i < len; ++i) {
+      if (list[i].id == id) {
+        list[i].open = !list[i].open
+      } else {
+        list[i].open = false
+      }
+    }
+    this.setData({
+      list: list
+    });
   },
   //查询所有信息
   selectAll: function () {
@@ -47,8 +51,14 @@ Page({
       vote.seat = stuExam[i].e_seat
       vote.open = false
       var time = stuExam[i].e_time.split('/')
-      vote.date = time[0]
-      vote.time = time[1]
+      if (time[0] == "undefined") {
+        vote.date = "教务系统尚未公布"
+        vote.ring = false
+      } else {
+        vote.date = time[0]
+        vote.time = time[1]
+        vote.ring = true
+      }
       list.push(vote)
     }
     //仅第一项保留是true即可
@@ -57,7 +67,7 @@ Page({
     }
     this.setData({
       list,
-      temp:'你还有'
+      temp: '你还有'
     })
   },
   //查询本周
@@ -77,7 +87,7 @@ Page({
     var exams = this.data.exams
     for (let i = 0; i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
-      var timeTemp=time[0].split('-')
+      var timeTemp = time[0].split('-')
       var key = {
         year: Number(timeTemp[0]),
         month: Number(timeTemp[1]),
@@ -92,6 +102,7 @@ Page({
         vote.open = false
         vote.date = time[0]
         vote.time = time[1]
+        vote.ring = true
         list.push(vote)
       }
     }
@@ -101,7 +112,7 @@ Page({
     }
     this.setData({
       list,
-      temp:'你还有'
+      temp: '你还有'
     })
   },
   //查询下周
@@ -113,7 +124,7 @@ Page({
     var exams = this.data.exams
     for (let i = 0; i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
-      var timeTemp=time[0].split('-')
+      var timeTemp = time[0].split('-')
       var key = {
         year: Number(timeTemp[0]),
         month: Number(timeTemp[1]),
@@ -128,6 +139,7 @@ Page({
         vote.open = false
         vote.date = time[0]
         vote.time = time[1]
+        vote.ring = true
         list.push(vote)
       }
     }
@@ -137,17 +149,17 @@ Page({
     }
     this.setData({
       list,
-      temp:'你还有'
+      temp: '你还有'
     })
   },
   selectFinished: function () {
     this.setData({
-      temp:"你已经完成"
+      temp: "你已经完成"
     })
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
-    let date = now.getDate()-1;
+    let date = now.getDate() - 1;
     let fin = {
       year,
       month,
@@ -158,7 +170,7 @@ Page({
     var exams = this.data.exams
     for (let i = 0; i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
-      var timeTemp=time[0].split('-')
+      var timeTemp = time[0].split('-')
       var key = {
         year: Number(timeTemp[0]),
         month: Number(timeTemp[1]),
@@ -190,83 +202,79 @@ Page({
       title: '正在登录',
     })
     wx.cloud.callFunction({
-      name:'getOpenid'
-    }).then(res=>{
-      app.globalData._openid=res.result._openid
-      return wx.cloud.callFunction({
-        name:'getUserData',
-        data:{
-          OPENID:app.globalData._openid
-        }
-      })
-    }).then(res=>{
-      if(res.result.status==='ok')
-      {
-        app.globalData.userInfo=res.result.data
-        app.globalData.islogin=true
-        this.setData({
-          islogin:true
+        name: 'getOpenid'
+      }).then(res => {
+        app.globalData._openid = res.result._openid
+        return wx.cloud.callFunction({
+          name: 'getUserData',
+          data: {
+            OPENID: app.globalData._openid
+          }
         })
-      }
-      else{
-        app.globalData.islogin=false
-        this.setData({
-          islogin:false
-        })
-      }
-      return wx.cloud.callFunction({
-        name: "getExamData",
-        data: {
-          s_ID: app.globalData.userInfo.s_ID
+      }).then(res => {
+        if (res.result.status === 'ok') {
+          app.globalData.userInfo = res.result.data
+          app.globalData.islogin = true
+          this.setData({
+            islogin: true
+          })
+        } else {
+          app.globalData.islogin = false
+          this.setData({
+            islogin: false
+          })
         }
+        return wx.cloud.callFunction({
+          name: "getExamData",
+          data: {
+            s_ID: app.globalData.userInfo.s_ID
+          }
+        })
+      }).then(res => {
+        //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
+        if (res.result.status === 'ok') {
+          this.setData({
+            stuExam: res.result.data.stuExam,
+            exams: res.result.data.exams
+          })
+        }
+        this.selectThis()
+
       })
-    }).then(res=>{
-      //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
-      if(res.result.status==='ok'){
-        this.setData({
-               stuExam: res.result.data.stuExam,
-               exams: res.result.data.exams
-             })
-      }
-      this.selectThis()
-      
-    })
-    .catch(err => {
-      console.error('[云函数]调用失败', err)
-      wx.showToast({
-        title: 'fail',
-        icon: 'none'
+      .catch(err => {
+        console.error('[云函数]调用失败', err)
+        wx.showToast({
+          title: 'fail',
+          icon: 'none'
+        })
       })
-    })
     wx.hideLoading()
   },
-  onShow:function(){
+  onShow: function () {
     wx.showLoading({
       title: '正在加载',
     })
     wx.cloud.callFunction({
-      name:'getOpenid'
-    }).then(res=>{
-      app.globalData._openid=res.result._openid
+      name: 'getOpenid'
+    }).then(res => {
+      app.globalData._openid = res.result._openid
       return wx.cloud.callFunction({
-        name:'getUserData',
-        data:{
-          OPENID:app.globalData._openid
+        name: 'getUserData',
+        data: {
+          OPENID: app.globalData._openid
         }
       })
-    }).then(res=>{
-      if(res.result.status==='ok')
-      {
-        app.globalData.userInfo=res.result.data
-        app.globalData.islogin=true
+    }).then(res => {
+      if (res.result.status === 'ok') {
+        app.globalData.userInfo = res.result.data
+        app.globalData.islogin = true
         this.setData({
-          islogin:true
+          islogin: true
         })
-      }
-      else{
-        app.globalData.islogin=false
+      } else {
+        app.globalData.islogin = false
         this.setData({
-          islogin:false
+          islogin: false
         })
       }
     }).catch(err => {
@@ -343,5 +351,15 @@ Page({
     } else {
       return false
     }
+  },
+  ring: function (e) {
+    this.setData({
+      ringExam:e.currentTarget.dataset.exam
+    })
+  },
+  pickerChange:function(e){
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    //TODO 通过携带值+ringExam结合，设置推送 
   }
+
 })

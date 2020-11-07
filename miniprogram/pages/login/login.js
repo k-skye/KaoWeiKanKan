@@ -13,6 +13,7 @@ Page({
     }, ]
   },
   loginSubmit: function (event) {
+    //TODO 添加多绑定的判定
     //tuip123 11-05 getuserinfo
     if (this.data.isAgree) {
       if (this.data.formData.username && this.data.formData.password) {
