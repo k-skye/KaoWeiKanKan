@@ -2,6 +2,9 @@ page {
   background: #f3f7f7;
   margin: 0 5rpx;
 }
+.page_head{
+  margin-bottom: 50rpx;
+}
 .page_body{
   margin: 10rpx 30rpx ;
 }
@@ -26,7 +29,7 @@ page {
   font-size: 65rpx;
 }
 .infomation_title{
-  margin: -20rpx 15rpx ;
+  margin: 0rpx 15rpx ;
 }
 .infomation_list{
   margin: 0 30rpx;

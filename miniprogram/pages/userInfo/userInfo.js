@@ -47,8 +47,8 @@ Page({
       vote.seat = stuExam[i].e_seat
       vote.open = false
       var time = stuExam[i].e_time.split('/')
-      vote.date = time[0] + '-' + time[1] + '-' + time[2]
-      vote.time = time[3]
+      vote.date = time[0]
+      vote.time = time[1]
       list.push(vote)
     }
     //仅第一项保留是true即可
@@ -77,10 +77,11 @@ Page({
     var exams = this.data.exams
     for (let i = 0; i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
+      var timeTemp=time[0].split('-')
       var key = {
-        year: Number(time[0]),
-        month: Number(time[1]),
-        date: Number(time[2])
+        year: Number(timeTemp[0]),
+        month: Number(timeTemp[1]),
+        date: Number(timeTemp[2])
       }
       if (this.judgeTime(start, fin, key)) {
         var vote = {};
@@ -89,8 +90,8 @@ Page({
         vote.room = stuExam[i].e_room
         vote.seat = stuExam[i].e_seat
         vote.open = false
-        vote.date = time[0] + '-' + time[1] + '-' + time[2]
-        vote.time = time[3]
+        vote.date = time[0]
+        vote.time = time[1]
         list.push(vote)
       }
     }
@@ -112,10 +113,11 @@ Page({
     var exams = this.data.exams
     for (let i = 0; i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
+      var timeTemp=time[0].split('-')
       var key = {
-        year: Number(time[0]),
-        month: Number(time[1]),
-        date: Number(time[2])
+        year: Number(timeTemp[0]),
+        month: Number(timeTemp[1]),
+        date: Number(timeTemp[2])
       }
       if (this.judgeTime(start, fin, key)) {
         var vote = {};
@@ -124,8 +126,8 @@ Page({
         vote.room = stuExam[i].e_room
         vote.seat = stuExam[i].e_seat
         vote.open = false
-        vote.date = time[0] + '-' + time[1] + '-' + time[2]
-        vote.time = time[3]
+        vote.date = time[0]
+        vote.time = time[1]
         list.push(vote)
       }
     }
@@ -156,10 +158,11 @@ Page({
     var exams = this.data.exams
     for (let i = 0; i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
+      var timeTemp=time[0].split('-')
       var key = {
-        year: Number(time[0]),
-        month: Number(time[1]),
-        date: Number(time[2])
+        year: Number(timeTemp[0]),
+        month: Number(timeTemp[1]),
+        date: Number(timeTemp[2])
       }
       if (this.judgeTimeEarly(fin, key)) {
         var vote = {};
@@ -168,8 +171,8 @@ Page({
         vote.room = stuExam[i].e_room
         vote.seat = stuExam[i].e_seat
         vote.open = false
-        vote.date = time[0] + '-' + time[1] + '-' + time[2]
-        vote.time = time[3]
+        vote.date = time[0]
+        vote.time = time[1]
         list.push(vote)
       }
       //仅第一项保留是true即可
@@ -219,14 +222,14 @@ Page({
       })
     }).then(res=>{
       //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
-      if(res.result.date!=null){
+      if(res.result.status==='ok'){
         this.setData({
                stuExam: res.result.data.stuExam,
                exams: res.result.data.exams
              })
       }
       this.selectThis()
-       wx.hideLoading()
+      
     })
     .catch(err => {
       console.error('[云函数]调用失败', err)
@@ -235,6 +238,7 @@ Page({
         icon: 'none'
       })
     })
+    wx.hideLoading()
   },
   onShow:function(){
     wx.showLoading({
@@ -265,7 +269,6 @@ Page({
           islogin:false
         })
       }
-      wx.hideLoading()
     }).catch(err => {
       console.error('[云函数]调用失败', err)
       wx.showToast({
@@ -273,6 +276,7 @@ Page({
         icon: 'none'
       })
     })
+    wx.hideLoading()
   },
   // 获取时间的代码
   // 上周的开始时间console.log(getTime(7));
