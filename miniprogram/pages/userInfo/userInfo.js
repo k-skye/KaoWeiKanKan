@@ -72,6 +72,9 @@ Page({
   },
   //查询本周
   selectThis: function () {
+    this.setData({
+      temp: "你还有"
+    })
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
@@ -112,11 +115,13 @@ Page({
     }
     this.setData({
       list,
-      temp: '你还有'
     })
   },
   //查询下周
   selectNext: function () {
+    this.setData({
+      temp: "你还有"
+    })
     let start = this.getTime(-7)
     let fin = this.getTime(-13)
     var list = [];
@@ -149,7 +154,6 @@ Page({
     }
     this.setData({
       list,
-      temp: '你还有'
     })
   },
   selectFinished: function () {
@@ -188,13 +192,13 @@ Page({
         list.push(vote)
       }
       //仅第一项保留是true即可
-      if (list.length > 0) {
-        list[0].open = true
-      }
-      this.setData({
-        list
-      })
     }
+    if (list.length > 0) {
+      list[0].open = true
+    }
+    this.setData({
+      list
+    })
   },
 
   onLoad: function (options) {
