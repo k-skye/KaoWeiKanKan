@@ -26,6 +26,9 @@ Page({
         }).then(res=>{
           if(res.result.msg==='不存在该用户')
           {
+            wx.showLoading({
+              title: '正在尝试绑定',
+            })
             this.setData({
               errTemp:true
             })
@@ -53,6 +56,7 @@ Page({
         }).then(res => {
           if (this.data.errTemp && res.result.status === 'ok') {
             app.globalData.userInfo = res.result.data
+            wx.hideLoading()
             wx.switchTab({
               url: '../userInfo/userInfo',
             })

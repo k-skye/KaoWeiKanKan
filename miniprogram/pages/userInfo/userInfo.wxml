@@ -62,5 +62,6 @@
       <view class="un_login">抱歉，你还没有绑定</view>
       <view class="un_login">请先到"我的"页面进行绑定</view>
     </view>
+    
   </view>
 </view>
