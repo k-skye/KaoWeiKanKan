@@ -42,9 +42,9 @@
                 <view class="weui-cell weui-cell_access infomation_list" wx:if="{{item.ring}}">
                   <view class="weui-cell__bd"></view>
                   <view class="infomation_details" catchtap="ring" data-exam="{{item}}">
-                    <picker range="{{ringList}}" bindchange='pickerChange'> 
-                    <image src="../../images/ring.png" style="width: 50rpx; height: 50rpx;" />
-                  </picker>
+                    <picker range="{{ringList}}" bindchange='pickerChange'>
+                      <image src="../../images/ring.png" style="width: 50rpx; height: 50rpx;" />
+                    </picker>
                   </view>
                 </view>
               </view>
@@ -60,8 +60,16 @@
     <view class="info_head">
       <open-data type="userNickName" class="user_name"></open-data>
       <view class="un_login">抱歉，你还没有绑定</view>
-      <view class="un_login">请先到"我的"页面进行绑定</view>
+      <view class="un_login">请先进行绑定</view>
     </view>
-    
+    <view class="page_end">
+      <mp-cells>
+        <view bindtap="bind">
+          <mp-cell title="前往绑定" link>
+          </mp-cell>
+        </view>
+      </mp-cells>
+    </view>
   </view>
+
 </view>

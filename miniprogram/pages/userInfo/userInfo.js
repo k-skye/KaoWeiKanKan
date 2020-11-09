@@ -20,8 +20,8 @@ Page({
       // }, 
     ],
     islogin: false,
-    ringList:['前一天晚八点','当天早八点','提前一小时'],
-    ringExam:null
+    ringList: ['前一天晚八点', '当天早八点', '提前一小时'],
+    ringExam: null
   },
   //收缩的代码
   panel: function (e) {
@@ -156,6 +156,7 @@ Page({
       list,
     })
   },
+  //查询已经完成
   selectFinished: function () {
     this.setData({
       temp: "你已经完成"
@@ -200,14 +201,19 @@ Page({
       list
     })
   },
-
+  bind: function () {
+    wx.redirectTo({
+      url: '/pages/login/login',
+    })
+  },
   onLoad: function (options) {
     wx.showLoading({
       title: '正在登录',
     })
     wx.cloud.callFunction({
         name: 'getOpenid'
-      }).then(res => {
+      })
+      .then(res => {
         app.globalData._openid = res.result._openid
         return wx.cloud.callFunction({
           name: 'getUserData',
@@ -215,35 +221,40 @@ Page({
             OPENID: app.globalData._openid
           }
         })
-      }).then(res => {
+      })
+      .then(res => {
         if (res.result.status === 'ok') {
           app.globalData.userInfo = res.result.data
           app.globalData.islogin = true
           this.setData({
             islogin: true
           })
+          return wx.cloud.callFunction({
+            name: "getExamData",
+            data: {
+              account: app.globalData.userInfo.s_ID,
+              s_password: app.globalData.userInfo.s_password
+            }
+          })
         } else {
           app.globalData.islogin = false
           this.setData({
             islogin: false
           })
+          return new Promise((resolve,reject) => {
+            resolve()
+          })
         }
-        return wx.cloud.callFunction({
-          name: "getExamData",
-          data: {
-            s_ID: app.globalData.userInfo.s_ID
-          }
-        })
-      }).then(res => {
+      })
+      .then(res => {
         //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
-        if (res.result.status === 'ok') {
+        if (res&&res.result.status === 'ok') {
           this.setData({
             stuExam: res.result.data.stuExam,
             exams: res.result.data.exams
           })
         }
         this.selectThis()
-
       })
       .catch(err => {
         console.error('[云函数]调用失败', err)
@@ -255,9 +266,7 @@ Page({
     wx.hideLoading()
   },
   onShow: function () {
-    wx.showLoading({
-      title: '正在加载',
-    })
+    
     wx.cloud.callFunction({
       name: 'getOpenid'
     }).then(res => {
@@ -275,10 +284,20 @@ Page({
         this.setData({
           islogin: true
         })
+        return wx.cloud.callFunction({
+          name: "getExamData",
+            data: {
+              account: app.globalData.userInfo.s_ID,
+              s_password: app.globalData.userInfo.s_password
+            }
+        })
       } else {
         app.globalData.islogin = false
         this.setData({
           islogin: false
+        })
+        return new Promise((resolve,reject) => {
+          resolve()
         })
       }
     }).catch(err => {
@@ -288,7 +307,6 @@ Page({
         icon: 'none'
       })
     })
-    wx.hideLoading()
   },
   // 获取时间的代码
   // 上周的开始时间console.log(getTime(7));
@@ -358,10 +376,10 @@ Page({
   },
   ring: function (e) {
     this.setData({
-      ringExam:e.currentTarget.dataset.exam
+      ringExam: e.currentTarget.dataset.exam
     })
   },
-  pickerChange:function(e){
+  pickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     //TODO 通过携带值+ringExam结合，设置推送 
   }

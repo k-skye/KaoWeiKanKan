@@ -1,8 +1,8 @@
 //app.js
 App({
   globalData: {
-    _openid: '',
-    userInfo: {},
+    _openid: null,
+    userInfo:null,
     islogin:false
   },
   onLaunch: function () {

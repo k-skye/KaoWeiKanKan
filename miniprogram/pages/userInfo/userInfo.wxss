@@ -7,6 +7,8 @@ page {
 }
 .page_body{
   margin: 10rpx 30rpx ;
+}.page_end{
+  margin: 0 30rpx;
 }
 .info_head{
   margin: 5rpx 25rpx;
@@ -46,12 +48,7 @@ page {
 .weui-flex {
   align-items: center;
 }
-.weui-cells {
-  margin-top: 0;
-  opacity: 0;
-  transform: translateY(-50%);
-  transition: 0.3s;
-}
+
 .weui-cells:before,
 .weui-cells:after {
   display: none;

@@ -5,7 +5,7 @@
   <view class="page_body">
     <open-data type="userNickName" class="user_name"></open-data>
     <mp-cells title="学号：{{s_ID}}">
-      <view bindtap="unbind">
+      <view bindtap="unbind" wx:if="{{s_ID}}">
         <mp-cell title="取消绑定" link>
         </mp-cell>
       </view>

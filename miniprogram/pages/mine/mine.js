@@ -8,7 +8,7 @@ Page({
     }, {
       text: '解除绑定'
     }],
-    islogin:null
+    islogin:true
   },
   unbind: function () {
     this.setData({
@@ -44,51 +44,34 @@ Page({
         })
       })
     }
-  },onLoad:function(){
-    var that = this;
+  },
+  onLoad:function(){
+    if(app.globalData.userInfo!=null){
+      var that = this;
     that.setData({
       s_ID: app.globalData.userInfo.s_ID,
       islogin:app.globalData.islogin
     })
-  },onShow:function(){
-    wx.showLoading({
-      title: '正在加载',
-    })
-    var that = this;
+    }else{
+      var that = this;
+      that.setData({
+        islogin:app.globalData.islogin
+      })
+    }
+  },
+  onShow:function(){
+    
+    if(app.globalData.userInfo!=null){
+      var that = this;
     that.setData({
       s_ID: app.globalData.userInfo.s_ID,
       islogin:app.globalData.islogin
     })
-    wx.cloud.callFunction({
-      name: 'getOpenid'
-    }).then(res => {
-      app.globalData._openid = res.result._openid
-      return wx.cloud.callFunction({
-        name: 'getUserData',
-        data: {
-          OPENID: app.globalData._openid
-        }
+    }else{
+      var that = this;
+      that.setData({
+        islogin:app.globalData.islogin
       })
-    }).then(res => {
-      if (res.result.status === 'ok') {
-        app.globalData.userInfo = res.result.data
-        app.globalData.islogin = true
-        this.setData({
-          islogin: true
-        })
-      } else {
-        app.globalData.islogin = false
-        this.setData({
-          islogin: false
-        })
-      }
-    }).catch(err => {
-      console.error('[云函数]调用失败', err)
-      wx.showToast({
-        title: 'fail',
-        icon: 'none'
-      })
-    })
-    wx.hideLoading()
+    }
   }
 })
