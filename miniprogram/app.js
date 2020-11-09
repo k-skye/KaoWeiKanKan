@@ -3,7 +3,8 @@ App({
   globalData: {
     _openid: null,
     userInfo:null,
-    islogin:false
+    islogin:false,
+    reload:true
   },
   onLaunch: function () {
 

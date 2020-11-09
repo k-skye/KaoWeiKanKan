@@ -21,7 +21,8 @@ Page({
     ],
     islogin: false,
     ringList: ['前一天晚八点', '当天早八点', '提前一小时'],
-    ringExam: null
+    ringExam: null,
+    isfirst:true
   },
   //收缩的代码
   panel: function (e) {
@@ -229,6 +230,7 @@ Page({
           this.setData({
             islogin: true
           })
+          
           return wx.cloud.callFunction({
             name: "getExamData",
             data: {
@@ -247,6 +249,7 @@ Page({
         }
       })
       .then(res => {
+        console.log(res)
         //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
         if (res&&res.result.status === 'ok') {
           this.setData({
@@ -255,6 +258,7 @@ Page({
           })
         }
         this.selectThis()
+
       })
       .catch(err => {
         console.error('[云函数]调用失败', err)
@@ -264,9 +268,10 @@ Page({
         })
       })
     wx.hideLoading()
+    app.globalData.reload=false
   },
   onShow: function () {
-    
+    if(app.globalData.reload){
     wx.cloud.callFunction({
       name: 'getOpenid'
     }).then(res => {
@@ -306,7 +311,7 @@ Page({
         title: 'fail',
         icon: 'none'
       })
-    })
+    })}
   },
   // 获取时间的代码
   // 上周的开始时间console.log(getTime(7));

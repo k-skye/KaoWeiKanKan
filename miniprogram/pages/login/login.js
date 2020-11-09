@@ -14,7 +14,6 @@ Page({
     errTemp:null
   },
   loginSubmit: function (event) {
-    //TODO 添加多绑定的判定
     //tuip123 11-05 getuserinfo
     if (this.data.isAgree) {
       if (this.data.formData.username && this.data.formData.password) {
@@ -57,6 +56,7 @@ Page({
           if (this.data.errTemp && res.result.status === 'ok') {
             app.globalData.userInfo = res.result.data
             wx.hideLoading()
+            app.globalData.reload=true
             wx.switchTab({
               url: '../userInfo/userInfo',
             })
