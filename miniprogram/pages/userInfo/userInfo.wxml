@@ -40,12 +40,15 @@
                   <view class="infomation_details">{{item.seat}}</view>
                 </view>
                 <view class="weui-cell weui-cell_access infomation_list" wx:if="{{item.ring}}">
-                  <view class="weui-cell__bd"></view>
-                  <view class="infomation_details" catchtap="ring" data-exam="{{item}}">
-                    <picker range="{{ringList}}" bindchange='pickerChange'>
-                      <image src="../../images/ring.png" style="width: 50rpx; height: 50rpx;" />
+
+                  <view class="weui-cell__bd">
+                    <picker range="{{ringList}}" bindchange='pickerChange' catchtap="ring">
+                      <button class="weui-btn_cell weui-btn_cell-primary">提醒我考试
+                      </button>
+                      
                     </picker>
                   </view>
+
                 </view>
               </view>
             </view>

@@ -21,8 +21,7 @@ Page({
     ],
     islogin: false,
     ringList: ['前一天晚八点', '当天早八点', '提前一小时'],
-    ringExam: null,
-    isfirst:true
+    ringExam: null
   },
   //收缩的代码
   panel: function (e) {
@@ -202,6 +201,7 @@ Page({
       list
     })
   },
+  //前往绑定页面
   bind: function () {
     wx.redirectTo({
       url: '/pages/login/login',
@@ -211,11 +211,13 @@ Page({
     wx.showLoading({
       title: '正在登录',
     })
+    //获取_openid 保存
     wx.cloud.callFunction({
         name: 'getOpenid'
       })
       .then(res => {
         app.globalData._openid = res.result._openid
+        //获取用户信息，判断是否绑定
         return wx.cloud.callFunction({
           name: 'getUserData',
           data: {
@@ -224,13 +226,78 @@ Page({
         })
       })
       .then(res => {
+        //绑定过，就设置已经登陆
         if (res.result.status === 'ok') {
           app.globalData.userInfo = res.result.data
           app.globalData.islogin = true
           this.setData({
             islogin: true
           })
-          
+          //并且获取考试数据
+          return wx.cloud.callFunction({
+            name: "getExamData",
+            data: {
+              account: app.globalData.userInfo.s_ID,
+              s_password: app.globalData.userInfo.s_password
+            }
+          })
+        }
+        //否则，设置未登录过 
+        else {
+          app.globalData.islogin = false
+          this.setData({
+            islogin: false
+          })
+          return new Promise((resolve, reject) => {
+            resolve()
+          })
+        }
+      })
+      .then(res => {
+        //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
+        if (res && res.result.status === 'ok') {
+          this.setData({
+            stuExam: res.result.data.stuExam,
+            exams: res.result.data.exams
+          })
+
+          //设置不用重新加载
+          app.globalData.reload = false
+        }
+        this.selectThis()
+      })
+      .catch(err => {
+        console.error('[云函数]调用失败', err)
+        wx.showToast({
+          title: 'fail',
+          icon: 'none'
+        })
+      })
+    wx.hideLoading()
+  },
+  onShow: function () {
+    //如果需要重新加载（未绑定用户在绑定后）
+    if (app.globalData.reload) {
+      //获取openid
+      wx.cloud.callFunction({
+        name: 'getOpenid'
+      }).then(res => {
+        app.globalData._openid = res.result._openid
+        //获取用户信息
+        return wx.cloud.callFunction({
+          name: 'getUserData',
+          data: {
+            OPENID: app.globalData._openid
+          }
+        })
+      }).then(res => {
+        //如果存在则获取考试信息
+        if (res.result.status === 'ok') {
+          app.globalData.userInfo = res.result.data
+          app.globalData.islogin = true
+          this.setData({
+            islogin: true
+          })
           return wx.cloud.callFunction({
             name: "getExamData",
             data: {
@@ -243,75 +310,18 @@ Page({
           this.setData({
             islogin: false
           })
-          return new Promise((resolve,reject) => {
+          return new Promise((resolve, reject) => {
             resolve()
           })
         }
-      })
-      .then(res => {
-        console.log(res)
-        //tuip123 10-29 获取全部考试信息，保存到页面中，后续根据条件进行下一步筛选
-        if (res&&res.result.status === 'ok') {
-          this.setData({
-            stuExam: res.result.data.stuExam,
-            exams: res.result.data.exams
-          })
-        }
-        this.selectThis()
-
-      })
-      .catch(err => {
+      }).catch(err => {
         console.error('[云函数]调用失败', err)
         wx.showToast({
           title: 'fail',
           icon: 'none'
         })
       })
-    wx.hideLoading()
-    app.globalData.reload=false
-  },
-  onShow: function () {
-    if(app.globalData.reload){
-    wx.cloud.callFunction({
-      name: 'getOpenid'
-    }).then(res => {
-      app.globalData._openid = res.result._openid
-      return wx.cloud.callFunction({
-        name: 'getUserData',
-        data: {
-          OPENID: app.globalData._openid
-        }
-      })
-    }).then(res => {
-      if (res.result.status === 'ok') {
-        app.globalData.userInfo = res.result.data
-        app.globalData.islogin = true
-        this.setData({
-          islogin: true
-        })
-        return wx.cloud.callFunction({
-          name: "getExamData",
-            data: {
-              account: app.globalData.userInfo.s_ID,
-              s_password: app.globalData.userInfo.s_password
-            }
-        })
-      } else {
-        app.globalData.islogin = false
-        this.setData({
-          islogin: false
-        })
-        return new Promise((resolve,reject) => {
-          resolve()
-        })
-      }
-    }).catch(err => {
-      console.error('[云函数]调用失败', err)
-      wx.showToast({
-        title: 'fail',
-        icon: 'none'
-      })
-    })}
+    }
   },
   // 获取时间的代码
   // 上周的开始时间console.log(getTime(7));
@@ -379,6 +389,7 @@ Page({
       return false
     }
   },
+  //将考试信息保存到ringExam中
   ring: function (e) {
     this.setData({
       ringExam: e.currentTarget.dataset.exam
