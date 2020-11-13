@@ -3,9 +3,9 @@ const app = getApp()
 Page({
   data: {
     temp: '你还有',
-    s_ID: {},
-    stuExam: {},
-    exams: {},
+    s_ID: null,
+    stuExam: null,
+    exams: null,
     list: [
       //   考试list的格式
       //   {
@@ -43,7 +43,7 @@ Page({
     var list = [];
     var stuExam = this.data.stuExam
     var exams = this.data.exams
-    for (let i = 0; i < stuExam.length; i++) {
+    for (let i = 0; stuExam!=null&&i < stuExam.length; i++) {
       var vote = {};
       vote.id = i
       vote.name = exams[i].e_name
@@ -61,6 +61,7 @@ Page({
       }
       list.push(vote)
     }
+  
     //仅第一项保留是true即可
     if (list.length > 0) {
       list[0].open = true
@@ -127,7 +128,7 @@ Page({
     var list = [];
     var stuExam = this.data.stuExam
     var exams = this.data.exams
-    for (let i = 0; i < stuExam.length; i++) {
+    for (let i = 0;stuExam!=null&& i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
       var timeTemp = time[0].split('-')
       var key = {
@@ -173,7 +174,7 @@ Page({
     var list = [];
     var stuExam = this.data.stuExam
     var exams = this.data.exams
-    for (let i = 0; i < stuExam.length; i++) {
+    for (let i = 0;stuExam!=null&& i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
       var timeTemp = time[0].split('-')
       var key = {
@@ -203,11 +204,12 @@ Page({
   },
   //前往绑定页面
   bind: function () {
-    wx.redirectTo({
-      url: '/pages/login/login',
-    })
+   wx.reLaunch({
+     url: '/pages/login/login',
+   })
   },
   onLoad: function (options) {
+    app.globalData.reload=false
     wx.showLoading({
       title: '正在登录',
     })
@@ -260,11 +262,11 @@ Page({
             stuExam: res.result.data.stuExam,
             exams: res.result.data.exams
           })
-
           //设置不用重新加载
           app.globalData.reload = false
+          this.selectThis()
         }
-        this.selectThis()
+        
       })
       .catch(err => {
         console.error('[云函数]调用失败', err)
@@ -321,6 +323,7 @@ Page({
           icon: 'none'
         })
       })
+      this.selectThis()
     }
   },
   // 获取时间的代码
@@ -391,13 +394,19 @@ Page({
   },
   //将考试信息保存到ringExam中
   ring: function (e) {
+    console.log(e.currentTarget.dataset.exam)
     this.setData({
       ringExam: e.currentTarget.dataset.exam
+    })
+    wx.requestSubscribeMessage({
+      tmplIds: ['123'],
+      success(res){
+
+      }
     })
   },
   pickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     //TODO 通过携带值+ringExam结合，设置推送 
   }
-
 })

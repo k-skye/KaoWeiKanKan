@@ -5,12 +5,12 @@
       <open-data type="userNickName" class="user_name"></open-data>
       <view class="count">{{temp}}<span class="count_number">{{list.length}}</span>场考试</view>
     </view>
-    <radio-group class="weui-flex">
-      <radio checked="true" bindtap="selectThis" class="weui-flex__item">本周</radio>
-      <radio bindtap="selectNext" class="weui-flex__item">下周</radio>
-      <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
-      <radio bindtap="selectFinished" class="weui-flex__item">已考完</radio>
-    </radio-group>
+      <radio-group class="weui-flex">
+        <radio checked="true" bindtap="selectThis" class="weui-flex__item">本周</radio>
+        <radio bindtap="selectNext" class="weui-flex__item">下周</radio>
+        <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
+        <radio bindtap="selectFinished" class="weui-flex__item">已考完</radio>
+      </radio-group>
   </view>
 
   <view class="page_body">
@@ -39,17 +39,16 @@
                   <view class="weui-cell__bd">座位号：</view>
                   <view class="infomation_details">{{item.seat}}</view>
                 </view>
-                <view class="weui-cell weui-cell_access infomation_list" wx:if="{{item.ring}}">
 
-                  <view class="weui-cell__bd">
-                    <picker range="{{ringList}}" bindchange='pickerChange' catchtap="ring">
-                      <button class="weui-btn_cell weui-btn_cell-primary">提醒我考试
+                <!-- <view class="weui-cell weui-cell_access infomation_list" wx:if="{{item.ring}}">
+                  <view class="weui-cell__bd" catchtap="ring" data-exam="{{item}}">
+                    <picker bindchange='pickerChange' range="{{ringList}}">
+                      <button class="weui-btn_cell weui-btn_cell-primary" >提醒我考试
                       </button>
-                      
                     </picker>
                   </view>
+                </view> -->
 
-                </view>
               </view>
             </view>
           </view>

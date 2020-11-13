@@ -51,7 +51,7 @@ Page({
           if (res && res.result.status === 'ok') {
             //需要重新加载
             app.globalData.reload = true
-            wx.switchTab({
+            wx.reLaunch({
               url: '../userInfo/userInfo',
             })
           }

@@ -35,7 +35,7 @@
   },
   "appid": "wx9ba947e4f2c6fb5c",
   "projectname": "huaguangkaoshi",
-  "libVersion": "2.13.1",
+  "libVersion": "2.14.0",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",

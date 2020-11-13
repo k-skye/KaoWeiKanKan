@@ -16,7 +16,7 @@ Page({
     })
   },
   bind: function () {
-    wx.redirectTo({
+    wx.reLaunch({
       url: '/pages/login/login',
     })
   },
