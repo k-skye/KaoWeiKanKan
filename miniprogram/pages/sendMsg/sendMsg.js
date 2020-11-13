@@ -2,7 +2,8 @@
 Page({
   data: {
     formData: {},
-    success: ''
+    success: '',
+    length:0
   },
   back: function () {
     this.setData({
@@ -18,8 +19,12 @@ Page({
       field
     } = e.currentTarget.dataset
     this.setData({
-      [`formData.${field}`]: e.detail.value
+      [`formData.${field}`]: e.detail.value,
     })
+    this.setData({
+      length:this.data.formData.message.length
+    })
+    
   },
 })
 function sleep(numberMillis) { 
