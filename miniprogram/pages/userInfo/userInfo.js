@@ -22,7 +22,11 @@ Page({
     islogin: false,
     ringList: ['前一天晚八点', '当天早八点', '提前一小时'],
     ringExam: null,
-    ready:false
+    ready:false,
+    thisWeek:true,
+    nextWeek:false,
+    totalExam:false,
+    finishedExam:false,
   },
   //收缩的代码
   panel: function (e) {
@@ -41,7 +45,6 @@ Page({
   },
   //查询所有信息
   selectAll: function () {
-    
     var list = [];
     var stuExam = this.data.stuExam
     var exams = this.data.exams
@@ -115,10 +118,29 @@ Page({
     //仅第一项保留是true即可
     if (list.length > 0) {
       list[0].open = true
+      this.setData({
+        list,
+      })
     }
-    this.setData({
-      list,
-    })
+    //如果本周为空
+    else{
+      //如果没有选中所有
+      if(this.data.totalExam===false){
+      //选中并且执行查询所有
+      this.setData({
+        totalExam:true,
+        thisWeek:false
+      })
+      this.selectAll()
+    }
+    //如果现在是所有界面，则不变
+    else{
+      this.setData({
+        list,
+      })
+    }
+    }
+    
   },
   //查询下周
   selectNext: function () {
@@ -267,6 +289,7 @@ Page({
           this.setData({
             ready:true
           })
+          wx.hideLoading()
           //设置不用重新加载
           app.globalData.reload = false
           this.selectThis()
@@ -280,7 +303,7 @@ Page({
           icon: 'none'
         })
       })
-    wx.hideLoading()
+    
   },
   onShow: function () {
     //如果需要重新加载（未绑定用户在绑定后）

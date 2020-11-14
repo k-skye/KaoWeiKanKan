@@ -6,10 +6,10 @@
       <view class="count">{{temp}}<span class="count_number">{{list.length}}</span>场考试</view>
     </view>
       <radio-group class="weui-flex" wx:if="{{ready}}">
-        <radio checked="true" bindtap="selectThis" class="weui-flex__item">本周</radio>
-        <radio bindtap="selectNext" class="weui-flex__item">下周</radio>
-        <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
-        <radio bindtap="selectFinished" class="weui-flex__item">已考完</radio>
+        <radio checked="{{thisWeek}}" bindtap="selectThis" class="weui-flex__item">本周</radio>
+        <radio checked="{{nextWeek}}" bindtap="selectNext" class="weui-flex__item">下周</radio>
+        <radio checked="{{totalExam}}" bindtap="selectAll" class="weui-flex__item">所有</radio>
+        <radio checked="{{finishedExam}}" bindtap="selectFinished" class="weui-flex__item">已考完</radio>
       </radio-group>
   </view>
 
