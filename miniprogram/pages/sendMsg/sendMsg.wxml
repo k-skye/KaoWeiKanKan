@@ -6,7 +6,7 @@
       <view class="weui-cell__bd">
         <textarea bindinput="formInputChange" data-field="message" class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" ></textarea>
         
-        <view class="weui-textarea-counter">{{length}}/200</view>
+        <view class="weui-textarea-counter">{{length}}/140</view>
       </view>
     </view>
   </view>
