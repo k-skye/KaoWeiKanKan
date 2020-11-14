@@ -21,7 +21,8 @@ Page({
     ],
     islogin: false,
     ringList: ['前一天晚八点', '当天早八点', '提前一小时'],
-    ringExam: null
+    ringExam: null,
+    ready:false
   },
   //收缩的代码
   panel: function (e) {
@@ -40,6 +41,7 @@ Page({
   },
   //查询所有信息
   selectAll: function () {
+    
     var list = [];
     var stuExam = this.data.stuExam
     var exams = this.data.exams
@@ -262,6 +264,9 @@ Page({
             stuExam: res.result.data.stuExam,
             exams: res.result.data.exams
           })
+          this.setData({
+            ready:true
+          })
           //设置不用重新加载
           app.globalData.reload = false
           this.selectThis()
@@ -316,6 +321,7 @@ Page({
             resolve()
           })
         }
+        
       }).catch(err => {
         console.error('[云函数]调用失败', err)
         wx.showToast({
@@ -323,6 +329,8 @@ Page({
           icon: 'none'
         })
       })
+      
+      console.log(this.data.ready)
       this.selectThis()
     }
   },
@@ -410,3 +418,12 @@ Page({
     //TODO 通过携带值+ringExam结合，设置推送 
   }
 })
+function sleep(numberMillis) { 
+  var now = new Date(); 
+  var exitTime = now.getTime() + numberMillis; 
+  while (true) { 
+  now = new Date(); 
+  if (now.getTime() > exitTime) 
+  return; 
+  } 
+  }

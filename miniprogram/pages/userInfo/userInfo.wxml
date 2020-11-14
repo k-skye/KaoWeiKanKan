@@ -5,7 +5,7 @@
       <open-data type="userNickName" class="user_name"></open-data>
       <view class="count">{{temp}}<span class="count_number">{{list.length}}</span>场考试</view>
     </view>
-      <radio-group class="weui-flex">
+      <radio-group class="weui-flex" wx:if="{{ready}}">
         <radio checked="true" bindtap="selectThis" class="weui-flex__item">本周</radio>
         <radio bindtap="selectNext" class="weui-flex__item">下周</radio>
         <radio bindtap="selectAll" class="weui-flex__item">所有</radio>
