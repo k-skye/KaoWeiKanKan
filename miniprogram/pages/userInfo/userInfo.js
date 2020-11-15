@@ -94,7 +94,7 @@ Page({
     var list = [];
     var stuExam = this.data.stuExam
     var exams = this.data.exams
-    for (let i = 0; i < stuExam.length; i++) {
+    for (let i = 0; stuExam!=null&&i < stuExam.length; i++) {
       var time = stuExam[i].e_time.split('/')
       var timeTemp = time[0].split('-')
       var key = {
@@ -286,15 +286,16 @@ Page({
             stuExam: res.result.data.stuExam,
             exams: res.result.data.exams
           })
-          this.setData({
-            ready:true
-          })
-          wx.hideLoading()
-          //设置不用重新加载
-          app.globalData.reload = false
           this.selectThis()
         }
-        
+        this.setData({
+          ready:true
+        })
+        wx.hideLoading()
+        //设置不用重新加载
+        app.globalData.reload = false
+
+       
       })
       .catch(err => {
         console.error('[云函数]调用失败', err)
