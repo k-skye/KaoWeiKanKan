@@ -2,7 +2,10 @@
 const app = getApp()
 Page({
   data: {
-    temp: '你还有',
+    ready:false, //页面准备状态
+    beginning: '你还有',//页面开始内容
+    islogin: false,//用户登录状态
+    //用户考试信息
     s_ID: null,
     stuExam: null,
     exams: null,
@@ -19,10 +22,11 @@ Page({
       //   ring: true
       // }, 
     ],
-    islogin: false,
+    //提醒内容
     ringList: ['前一天晚八点', '当天早八点', '提前一小时'],
     ringExam: null,
-    ready:false,
+    timeType:null,
+    //页面选择状态
     thisWeek:true,
     nextWeek:false,
     totalExam:false,
@@ -73,13 +77,13 @@ Page({
     }
     this.setData({
       list,
-      temp: '你还有'
+      beginning: '你还有'
     })
   },
   //查询本周
   selectThis: function () {
     this.setData({
-      temp: "你还有"
+      beginning: "你还有"
     })
     let now = new Date();
     let year = now.getFullYear();
@@ -145,7 +149,7 @@ Page({
   //查询下周
   selectNext: function () {
     this.setData({
-      temp: "你还有"
+      beginning: "你还有"
     })
     let start = this.getTime(-7)
     let fin = this.getTime(-13)
@@ -184,7 +188,7 @@ Page({
   //查询已经完成
   selectFinished: function () {
     this.setData({
-      temp: "你已经完成"
+      beginning: "你已经完成"
     })
     let now = new Date();
     let year = now.getFullYear();
@@ -294,8 +298,6 @@ Page({
         wx.hideLoading()
         //设置不用重新加载
         app.globalData.reload = false
-
-       
       })
       .catch(err => {
         console.error('[云函数]调用失败', err)
@@ -424,30 +426,114 @@ Page({
       return false
     }
   },
+  //catchtap占位用
+  catchtap:function(e){
+
+  },
   //将考试信息保存到ringExam中
   ring: function (e) {
     console.log(e.currentTarget.dataset.exam)
     this.setData({
       ringExam: e.currentTarget.dataset.exam
     })
+    let that=this
     wx.requestSubscribeMessage({
-      tmplIds: ['123'],
+      tmplIds: ['tq8Vlf8COlfHlubccjrw99PKGB7_YV0wjRUkYaLfS0U',],
       success(res){
-
+        if(res.tq8Vlf8COlfHlubccjrw99PKGB7_YV0wjRUkYaLfS0U=="accept"){
+          that.sentRing()
+        }
+      },
+      fail(err){
+        console.error(err)
       }
     })
   },
+  //设置选择值
   pickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    //TODO 通过携带值+ringExam结合，设置推送 
+    this.setData({
+      timeType:e.detail.value
+    })
+  },
+  sentRing:function(){
+    console.log("fuc:sentRing")
+    let isRing=true
+    var _openid=app.globalData._openid
+    var e_name=this.data.ringExam.name
+    var e_room=this.data.ringExam.room
+    var e_seat=this.data.ringExam.seat
+    var dateTemp=this.data.ringExam.date.split("-")
+    var timeTemp=this.data.ringExam.time.split("-")[0].split(":")
+
+    //根据选择设定时间
+    if(this.data.timeType==="0"){
+      if(dateTemp[2]==="1"){
+        if(dateTemp[1]==="1"){
+          var month=12
+          var date=31
+        }
+        else{
+          var month=dateTemp[1]-1
+          var date=new Date(dateTemp[0],month,0).getDate()
+        }
+      }
+      else{
+        var month=dateTemp[1]
+        var date=dateTemp[2]-1
+      }
+      var hours=8
+      var minute=0
+    }
+    else 
+    if(this.data.timeType==="1"){
+      var month=dateTemp[1]
+      var date=dateTemp[2]
+      var hours=8
+      var minute=0
+    }
+    else 
+    if(this.data.timeType==="2"){
+      var month=dateTemp[1]
+      var date=dateTemp[2]
+      var hours=timeTemp[0]-1
+      var minute=timeTemp[1]
+    }
+    else
+    {
+      isRing=false
+    }
+    
+    if(isRing==true)
+    {
+      wx.cloud.callFunction({
+        name:"addRingTime",
+        data:{
+          _openid,
+          e_name,
+          e_room,
+          e_seat,
+          month,
+          date,
+          hours,
+          minute
+        }
+      }).then(res=>{
+        if(res.result.status==="ok"){
+          this.setData({
+            success:"已经为"+e_name+"设置了"+this.data.ringList[this.data.timeType]+"的提醒"
+          })
+        }
+        else{
+          this.setData({
+            error:"抱歉，发生未知错误，请重新设置"
+          })
+        }
+      })
+    }
+    else{
+      this.setData({
+        error:"你没有选择时间"
+      })
+    }
   }
 })
-function sleep(numberMillis) { 
-  var now = new Date(); 
-  var exitTime = now.getTime() + numberMillis; 
-  while (true) { 
-  now = new Date(); 
-  if (now.getTime() > exitTime) 
-  return; 
-  } 
-  }

@@ -1,9 +1,11 @@
 <!--pages/userInfo/userInfo.wxml-->
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<mp-toptips msg="{{success}}" type="success" show="{{success}}"></mp-toptips>
 <view wx:if="{{islogin}}">
   <view class="page_head">
     <view class="info_head">
       <open-data type="userNickName" class="user_name"></open-data>
-      <view class="count">{{temp}}<span class="count_number">{{list.length}}</span>场考试</view>
+      <view class="count">{{beginning}}<span class="count_number">{{list.length}}</span>场考试</view>
     </view>
       <radio-group class="weui-flex" wx:if="{{ready}}">
         <radio checked="{{thisWeek}}" bindtap="selectThis" class="weui-flex__item">本周</radio>
@@ -40,14 +42,14 @@
                   <view class="infomation_details">{{item.seat}}</view>
                 </view>
 
-                <!-- <view class="weui-cell weui-cell_access infomation_list" wx:if="{{item.ring}}">
-                  <view class="weui-cell__bd" catchtap="ring" data-exam="{{item}}">
+                <view class="weui-cell weui-cell_access infomation_list" wx:if="{{item.ring}}" catchtap="catchtap">
+                  <button class="weui-cell__bd">
                     <picker bindchange='pickerChange' range="{{ringList}}">
-                      <button class="weui-btn_cell weui-btn_cell-primary" >提醒我考试
+                      <button class="weui-btn_cell weui-btn_cell-primary"  bindtap="ring"  data-exam="{{item}}" >提醒我考试
                       </button>
                     </picker>
-                  </view>
-                </view> -->
+                  </button>
+                </view>
 
               </view>
             </view>
