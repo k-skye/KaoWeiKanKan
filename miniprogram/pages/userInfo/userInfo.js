@@ -488,7 +488,7 @@ Page({
           var month=dateTemp[1]
           var date=dateTemp[2]-1
         }
-        var hours=8
+        var hours=20
         var minute=0
         break;
       }
@@ -508,52 +508,12 @@ Page({
       var minute=timeTemp[1]
         break;
       }
-      // case null:{
-      //   isRing=false
-
-      //   break;
-      // }
       default:{
         isRing=false
         break;
       }
     }
-    // if(this.data.timeType==="0"){
-    //   isRing=true
-    //   if(dateTemp[2]==="1"){
-    //     if(dateTemp[1]==="1"){
-    //       var month=12
-    //       var date=31
-    //     }
-    //     else{
-    //       var month=dateTemp[1]-1
-    //       var date=new Date(dateTemp[0],month,0).getDate()
-    //     }
-    //   }
-    //   else{
-    //     var month=dateTemp[1]
-    //     var date=dateTemp[2]-1
-    //   }
-    //   var hours=8
-    //   var minute=0
-    // }
-    // else 
-    // if(this.data.timeType==="1"){
-    //   isRing=true
-    //   var month=dateTemp[1]
-    //   var date=dateTemp[2]
-    //   var hours=8
-    //   var minute=0
-    // }
-    // else 
-    // if(this.data.timeType==="2"){
-    //   isRing=true
-    //   var month=dateTemp[1]
-    //   var date=dateTemp[2]
-    //   var hours=timeTemp[0]-1
-    //   var minute=timeTemp[1]
-    // }
-    
+
     if(isRing)
     {
       let success="已经为"+e_name+"设置了"+this.data.ringList[this.data.timeType]+"的提醒"
