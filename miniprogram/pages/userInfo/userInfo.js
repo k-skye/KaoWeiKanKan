@@ -432,7 +432,6 @@ Page({
   },
   //将考试信息保存到ringExam中
   ring: function (e) {
-    console.log(e.currentTarget.dataset.exam)
     this.setData({
       ringExam: e.currentTarget.dataset.exam
     })
@@ -442,6 +441,11 @@ Page({
       success(res){
         if(res.tq8Vlf8COlfHlubccjrw99PKGB7_YV0wjRUkYaLfS0U=="accept"){
           that.sentRing()
+        }
+        else if(res.tq8Vlf8COlfHlubccjrw99PKGB7_YV0wjRUkYaLfS0U=="reject"){
+          that.setData({
+            timeType:null
+          })
         }
       },
       fail(err){
@@ -455,56 +459,105 @@ Page({
       timeType:e.detail.value
     })
   },
+  //提醒 对接云函数
   sentRing:function(){
     console.log("fuc:sentRing")
-    let isRing=true
+    let isRing=false
     var _openid=app.globalData._openid
     var e_name=this.data.ringExam.name
     var e_room=this.data.ringExam.room
     var e_seat=this.data.ringExam.seat
     var dateTemp=this.data.ringExam.date.split("-")
     var timeTemp=this.data.ringExam.time.split("-")[0].split(":")
-
     //根据选择设定时间
-    if(this.data.timeType==="0"){
-      if(dateTemp[2]==="1"){
-        if(dateTemp[1]==="1"){
-          var month=12
-          var date=31
+    switch(this.data.timeType)
+    {
+      case "0":{
+        isRing=true
+        if(dateTemp[2]==="1"){
+          if(dateTemp[1]==="1"){
+            var month=12
+            var date=31
+          }
+          else{
+            var month=dateTemp[1]-1
+            var date=new Date(dateTemp[0],month,0).getDate()
+          }
         }
         else{
-          var month=dateTemp[1]-1
-          var date=new Date(dateTemp[0],month,0).getDate()
+          var month=dateTemp[1]
+          var date=dateTemp[2]-1
         }
+        var hours=8
+        var minute=0
+        break;
       }
-      else{
+      case "1":{
+        isRing=true
         var month=dateTemp[1]
-        var date=dateTemp[2]-1
+        var date=dateTemp[2]
+        var hours=8
+        var minute=0
+        break;
       }
-      var hours=8
-      var minute=0
-    }
-    else 
-    if(this.data.timeType==="1"){
-      var month=dateTemp[1]
-      var date=dateTemp[2]
-      var hours=8
-      var minute=0
-    }
-    else 
-    if(this.data.timeType==="2"){
+      case "2":{
+        isRing=true
       var month=dateTemp[1]
       var date=dateTemp[2]
       var hours=timeTemp[0]-1
       var minute=timeTemp[1]
+        break;
+      }
+      // case null:{
+      //   isRing=false
+
+      //   break;
+      // }
+      default:{
+        isRing=false
+        break;
+      }
     }
-    else
-    {
-      isRing=false
-    }
+    // if(this.data.timeType==="0"){
+    //   isRing=true
+    //   if(dateTemp[2]==="1"){
+    //     if(dateTemp[1]==="1"){
+    //       var month=12
+    //       var date=31
+    //     }
+    //     else{
+    //       var month=dateTemp[1]-1
+    //       var date=new Date(dateTemp[0],month,0).getDate()
+    //     }
+    //   }
+    //   else{
+    //     var month=dateTemp[1]
+    //     var date=dateTemp[2]-1
+    //   }
+    //   var hours=8
+    //   var minute=0
+    // }
+    // else 
+    // if(this.data.timeType==="1"){
+    //   isRing=true
+    //   var month=dateTemp[1]
+    //   var date=dateTemp[2]
+    //   var hours=8
+    //   var minute=0
+    // }
+    // else 
+    // if(this.data.timeType==="2"){
+    //   isRing=true
+    //   var month=dateTemp[1]
+    //   var date=dateTemp[2]
+    //   var hours=timeTemp[0]-1
+    //   var minute=timeTemp[1]
+    // }
     
-    if(isRing==true)
+    if(isRing)
     {
+      let success="已经为"+e_name+"设置了"+this.data.ringList[this.data.timeType]+"的提醒"
+      // isRing=false
       wx.cloud.callFunction({
         name:"addRingTime",
         data:{
@@ -520,7 +573,7 @@ Page({
       }).then(res=>{
         if(res.result.status==="ok"){
           this.setData({
-            success:"已经为"+e_name+"设置了"+this.data.ringList[this.data.timeType]+"的提醒"
+            success,
           })
         }
         else{
@@ -535,5 +588,8 @@ Page({
         error:"你没有选择时间"
       })
     }
+    this.setData({
+      timeType:null
+    })
   }
 })
