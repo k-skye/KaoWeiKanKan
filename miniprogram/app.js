@@ -1,6 +1,7 @@
 //app.js
 App({
   globalData: {
+    v:"1.0.4",
     _openid: null,
     userInfo:null,
     islogin:false,
