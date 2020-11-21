@@ -311,6 +311,9 @@ Page({
   onShow: function () {
     //如果需要重新加载（未绑定用户在绑定后）
     if (app.globalData.reload) {
+      wx.showLoading({
+        title: '正在加载',
+      })
       //获取openid
       wx.cloud.callFunction({
         name: 'getOpenid'
@@ -348,6 +351,8 @@ Page({
           })
         }
         
+      }).then(res=>{
+        wx.hideLoading()
       }).catch(err => {
         console.error('[云函数]调用失败', err)
         wx.showToast({
@@ -355,7 +360,6 @@ Page({
           icon: 'none'
         })
       })
-      
       console.log(this.data.ready)
       this.selectThis()
     }
