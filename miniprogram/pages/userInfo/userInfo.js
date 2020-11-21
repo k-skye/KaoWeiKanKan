@@ -428,7 +428,6 @@ Page({
   },
   //catchtap占位用
   catchtap:function(e){
-
   },
   //将考试信息保存到ringExam中
   ring: function (e) {
@@ -467,6 +466,8 @@ Page({
     var e_name=this.data.ringExam.name
     var e_room=this.data.ringExam.room
     var e_seat=this.data.ringExam.seat
+    var currentDate=this.data.ringExam.date
+    var currentTime=this.data.ringExam.time
     var dateTemp=this.data.ringExam.date.split("-")
     var timeTemp=this.data.ringExam.time.split("-")[0].split(":")
     //根据选择设定时间
@@ -528,7 +529,9 @@ Page({
           month,
           date,
           hours,
-          minute
+          minute,
+          currentDate,
+          currentTime
         }
       }).then(res=>{
         if(res.result.status==="ok"){
