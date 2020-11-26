@@ -439,13 +439,14 @@ Page({
       ringExam: e.currentTarget.dataset.exam
     })
     let that=this
+    let tmpid="tq8Vlf8COlfHlubccjrw91KPiEgd3xnMPOnOAEEVmcg"
     wx.requestSubscribeMessage({
-      tmplIds: ['tq8Vlf8COlfHlubccjrw99PKGB7_YV0wjRUkYaLfS0U',],
+      tmplIds: [tmpid],
       success(res){
-        if(res.tq8Vlf8COlfHlubccjrw99PKGB7_YV0wjRUkYaLfS0U=="accept"){
+        if(res[tmpid]=="accept"){
           that.sentRing()
         }
-        else if(res.tq8Vlf8COlfHlubccjrw99PKGB7_YV0wjRUkYaLfS0U=="reject"){
+        else if(res[tmpid]=="reject"){
           that.setData({
             timeType:null
           })
@@ -464,7 +465,6 @@ Page({
   },
   //提醒 对接云函数
   sentRing:function(){
-    console.log("fuc:sentRing")
     let isRing=false
     var _openid=app.globalData._openid
     var e_name=this.data.ringExam.name
